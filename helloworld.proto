@@ -9,7 +9,7 @@ service Packet {
 
 //----------------------------------------------------------
 message EnviarLibroRequest {
-    string id = 1;
+    bytes id = 1;
 }
 
 message EnviarLibroReply {

@@ -7,6 +7,13 @@ import (
 	"os"
 	"strconv"
 	"bufio"
+
+	"log"
+
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+
+	pb "github.com/GianniCarlini/Lab-2-SD/proto"
 )
 
  func main() {
@@ -18,8 +25,16 @@ import (
 		fmt.Scanln(&comportamiento)
 		switch comportamiento {
 			case 1:
-				var nameLibro string
+				conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+				if err != nil {
+					log.Fatalf("failed to connect: %s", err)
+				}
+				defer conn.Close()
+
+				client := pb.NewPacketClient(conn)
+				stream, err := client.EnviarLibro(context.Background())
 				//-----------------------------division de archivos------------------------
+				var nameLibro string
 				fmt.Println("Ingrese el nombre del libro")
 				fmt.Scanln(&nameLibro)
 				fileToBeChunked := "./Libros/"+nameLibro+".pdf"
@@ -49,11 +64,12 @@ import (
 	   
 						partSize := int(math.Min(fileChunk, float64(fileSize-int64(i*fileChunk))))
 						partBuffer := make([]byte, partSize)
-	   
 						file.Read(partBuffer)
-	   
+						//------------------envio de chunks------------------------------------
 						// write to disk
 						fileName := nameLibro+"_" + strconv.FormatUint(i, 10)
+						msg := &pb.EnviarLibroRequest{Id: partBuffer}
+						stream.Send(msg)
 						_, err := os.Create(fileName)
 	   
 						if err != nil {
@@ -66,6 +82,8 @@ import (
 	   
 						fmt.Println("Split to : ", fileName)
 				}
+				stream.CloseSend()
+				
 			case 2:
 				//-----------------------------reconstruccion de archivos------------------------
 				fmt.Println("Ingrese el nombre del libro")

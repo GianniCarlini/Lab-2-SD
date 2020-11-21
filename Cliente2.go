@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"time"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"

@@ -5,9 +5,8 @@ import (
 	"log"
 	"net"
 
+	pb "github.com/GianniCarlini/Lab-2-SD/proto"
 	"google.golang.org/grpc"
-
-	pb "github.com/GianniCarlini/Lab-2-SD/proto/proto"
 )
 const (
 	port = ":50051"
@@ -19,16 +18,21 @@ type server struct {
 
 func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 	log.Println("Started stream")
+	var contador = 0
 	for {
-		in, err := stream.Recv()
-		log.Println("Received value")
+		contador++
+		_, err := stream.Recv()
 		if err == io.EOF {
 			return nil
 		}
 		if err != nil {
 			return err
 		}
-		log.Println("Got "+in.Id)
+		log.Println("recibi"+string(contador))
+		resp := pb.EnviarLibroReply{Id: "xd"}
+		if err := stream.Send(&resp); err != nil { 
+			log.Printf("send error %v", err)
+		}
 	}
 }
 
