@@ -7,11 +7,11 @@ import (
 
 	"google.golang.org/grpc"
 
-	pb "github.com/GianniCarlini/Lab-2-SD/proto"
+	pb "github.com/GianniCarlini/Lab-2-SD/proto/proto"
 )
 const (
 	port = ":50051"
-	port2 = ":50052"
+
 )
 
 type server struct {

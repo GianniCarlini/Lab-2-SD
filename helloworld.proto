@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package helloworld;
 
-option go_package = "/proto";
 
 service Packet {
   rpc EnviarLibro (stream EnviarLibroRequest) returns (stream EnviarLibroReply) {} 
