@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	//"io/ioutil"
 	"math"
 	"os"
 	"strconv"
@@ -61,26 +61,20 @@ import (
 				fmt.Printf("Splitting to %d pieces.\n", totalPartsNum)
 	   
 				for i := uint64(0); i < totalPartsNum; i++ {
-	   
+						
 						partSize := int(math.Min(fileChunk, float64(fileSize-int64(i*fileChunk))))
 						partBuffer := make([]byte, partSize)
 						file.Read(partBuffer)
 						//------------------envio de chunks------------------------------------
 						// write to disk
 						fileName := nameLibro+"_" + strconv.FormatUint(i, 10)
-						msg := &pb.EnviarLibroRequest{Id: partBuffer}
+						msg := &pb.EnviarLibroRequest{Id: partBuffer, Name: fileName}
 						stream.Send(msg)
-						_, err := os.Create(fileName)
-	   
+						resp, err := stream.Recv()
 						if err != nil {
-								fmt.Println(err)
-								os.Exit(1)
+							log.Fatalf("can not receive %v", err)
 						}
-	   
-						// write/save buffer to disk
-						ioutil.WriteFile(fileName, partBuffer, os.ModeAppend)
-	   
-						fmt.Println("Split to : ", fileName)
+						fmt.Println("Ingresado: "+resp.Id)
 				}
 				stream.CloseSend()
 				

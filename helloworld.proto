@@ -10,6 +10,7 @@ service Packet {
 //----------------------------------------------------------
 message EnviarLibroRequest {
     bytes id = 1;
+    string name = 2;
 }
 
 message EnviarLibroReply {
