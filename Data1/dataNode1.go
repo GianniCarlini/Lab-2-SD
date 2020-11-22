@@ -15,9 +15,14 @@ import (
 	"google.golang.org/grpc"
 )
 const (
-	ip = "IPDATA1"
-	port = ":50051"
-	address = "localhost:50052"
+	ip1 = "IPDATA1"
+	//ip2 = "IPDATA1"
+	//ip3 = "IPDATA1"
+	port = ":50051" //puerto de data1server
+	address = "localhost:50052" //namenode
+	address2 = "localhost:50054" //data2
+	//address3 = "localhost:50053" //namenode
+
 
 )
 
@@ -39,7 +44,7 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 		}
 
 		partBuffer := in.Id
-		fileName := in.Name+"_"+ip
+		fileName := in.Name+"_"+ip1
 		resp := pb.EnviarLibroReply{Id: in.Name}
 		if err := stream.Send(&resp); err != nil { 
 			log.Printf("send error %v", err)
@@ -59,7 +64,7 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 		if uint64(contador) == in.Numero+1{
 			b1 := b[:in.Numero/3]
 			b2 := b[in.Numero/3:2*in.Numero/3]
-			b3 := b[2*in.Numero/3:]
+			//b3 := b[2*in.Numero/3:]
 			conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 			if err != nil {
 				log.Fatalf("did not connect: %v", err)
@@ -73,6 +78,7 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 				log.Fatalf("could not greet: %v", err)
 			}
 			fmt.Println(r.GetDistribucion1())
+			dist2 :=r.GetDistribucion2()
 			//-------------------creo mis archivos---------------------------------
 			for i := range r.GetDistribucion1(){
 				file, err := os.Create(r.GetDistribucion1()[i])
@@ -84,8 +90,19 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 				// write/save buffer to disk
 				ioutil.WriteFile(r.GetDistribucion1()[i], b1[i], os.ModeAppend)
 			}
-			fmt.Println(b2)
-			fmt.Println(b3)
+			conn2, err2 := grpc.Dial(address2, grpc.WithInsecure(), grpc.WithBlock())
+			if err2 != nil {
+				log.Fatalf("did not connect: %v", err)
+			}
+			defer conn2.Close()
+			c2 := pb.NewLibroDatasClient(conn2)
+			ctx2, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
+			r2, err3 := c2.EnviarLibroData(ctx2, &pb.DataRequestC{Distribucion: dist2, Bites: b2, Numero: int64(in.Numero/3)})
+			if err3 != nil {
+				log.Fatalf("could not greet: %v", err)
+			}
+			fmt.Println(r2.GetEstado())
 		}
 	}
 }
@@ -102,7 +119,7 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 		}
 
 		partBuffer := in.Id
-		fileName := in.Name+"_"+ip
+		fileName := in.Name+"_"+ip1
 		resp := pb.EnviarLibroReply2{Id: in.Name}
 		if err := stream.Send(&resp); err != nil { 
 			log.Printf("send error %v", err)
