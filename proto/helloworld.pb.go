@@ -35,8 +35,9 @@ type EnviarLibroRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   []byte `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Id     []byte `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name   string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Numero uint64 `protobuf:"varint,3,opt,name=numero,proto3" json:"numero,omitempty"`
 }
 
 func (x *EnviarLibroRequest) Reset() {
@@ -83,6 +84,13 @@ func (x *EnviarLibroRequest) GetName() string {
 		return x.Name
 	}
 	return ""
+}
+
+func (x *EnviarLibroRequest) GetNumero() uint64 {
+	if x != nil {
+		return x.Numero
+	}
+	return 0
 }
 
 type EnviarLibroReply struct {
@@ -132,24 +140,270 @@ func (x *EnviarLibroReply) GetId() string {
 	return ""
 }
 
+//-----------------------------------------------------------
+type EnviarLibroRequest2 struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id   []byte `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *EnviarLibroRequest2) Reset() {
+	*x = EnviarLibroRequest2{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EnviarLibroRequest2) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnviarLibroRequest2) ProtoMessage() {}
+
+func (x *EnviarLibroRequest2) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnviarLibroRequest2.ProtoReflect.Descriptor instead.
+func (*EnviarLibroRequest2) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *EnviarLibroRequest2) GetId() []byte {
+	if x != nil {
+		return x.Id
+	}
+	return nil
+}
+
+func (x *EnviarLibroRequest2) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type EnviarLibroReply2 struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *EnviarLibroReply2) Reset() {
+	*x = EnviarLibroReply2{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EnviarLibroReply2) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnviarLibroReply2) ProtoMessage() {}
+
+func (x *EnviarLibroReply2) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnviarLibroReply2.ProtoReflect.Descriptor instead.
+func (*EnviarLibroReply2) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *EnviarLibroReply2) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+//-----------------------------------------------------------
+type PropuestaRequestC struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Propuesta []string `protobuf:"bytes,1,rep,name=propuesta,proto3" json:"propuesta,omitempty"`
+}
+
+func (x *PropuestaRequestC) Reset() {
+	*x = PropuestaRequestC{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PropuestaRequestC) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PropuestaRequestC) ProtoMessage() {}
+
+func (x *PropuestaRequestC) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PropuestaRequestC.ProtoReflect.Descriptor instead.
+func (*PropuestaRequestC) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *PropuestaRequestC) GetPropuesta() []string {
+	if x != nil {
+		return x.Propuesta
+	}
+	return nil
+}
+
+type PropuestaReplyC struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Distribucion1 []string `protobuf:"bytes,1,rep,name=distribucion1,proto3" json:"distribucion1,omitempty"`
+	Distribucion2 []string `protobuf:"bytes,2,rep,name=distribucion2,proto3" json:"distribucion2,omitempty"`
+	Distribucion3 []string `protobuf:"bytes,3,rep,name=distribucion3,proto3" json:"distribucion3,omitempty"`
+}
+
+func (x *PropuestaReplyC) Reset() {
+	*x = PropuestaReplyC{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PropuestaReplyC) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PropuestaReplyC) ProtoMessage() {}
+
+func (x *PropuestaReplyC) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PropuestaReplyC.ProtoReflect.Descriptor instead.
+func (*PropuestaReplyC) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *PropuestaReplyC) GetDistribucion1() []string {
+	if x != nil {
+		return x.Distribucion1
+	}
+	return nil
+}
+
+func (x *PropuestaReplyC) GetDistribucion2() []string {
+	if x != nil {
+		return x.Distribucion2
+	}
+	return nil
+}
+
+func (x *PropuestaReplyC) GetDistribucion3() []string {
+	if x != nil {
+		return x.Distribucion3
+	}
+	return nil
+}
+
 var File_helloworld_proto protoreflect.FileDescriptor
 
 var file_helloworld_proto_rawDesc = []byte{
 	0x0a, 0x10, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x12, 0x0a, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x22, 0x38,
+	0x74, 0x6f, 0x12, 0x0a, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x22, 0x50,
 	0x0a, 0x12, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c,
 	0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x22, 0x0a, 0x10, 0x45, 0x6e, 0x76, 0x69,
-	0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02,
-	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x32, 0x5b, 0x0a, 0x06,
-	0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x51, 0x0a, 0x0b, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72,
-	0x4c, 0x69, 0x62, 0x72, 0x6f, 0x12, 0x1e, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72,
-	0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72,
-	0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65,
-	0x70, 0x6c, 0x79, 0x22, 0x00, 0x28, 0x01, 0x30, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x65,
+	0x72, 0x6f, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x65, 0x72, 0x6f,
+	0x22, 0x22, 0x0a, 0x10, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x02, 0x69, 0x64, 0x22, 0x39, 0x0a, 0x13, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69,
+	0x62, 0x72, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x32, 0x12, 0x0e, 0x0a, 0x02, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22,
+	0x23, 0x0a, 0x11, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65,
+	0x70, 0x6c, 0x79, 0x32, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x02, 0x69, 0x64, 0x22, 0x31, 0x0a, 0x11, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74,
+	0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x43, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x72, 0x6f,
+	0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x09, 0x70, 0x72,
+	0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x22, 0x83, 0x01, 0x0a, 0x0f, 0x50, 0x72, 0x6f, 0x70,
+	0x75, 0x65, 0x73, 0x74, 0x61, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x12, 0x24, 0x0a, 0x0d, 0x64,
+	0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x63, 0x69, 0x6f, 0x6e, 0x31, 0x18, 0x01, 0x20, 0x03,
+	0x28, 0x09, 0x52, 0x0d, 0x64, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x63, 0x69, 0x6f, 0x6e,
+	0x31, 0x12, 0x24, 0x0a, 0x0d, 0x64, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x63, 0x69, 0x6f,
+	0x6e, 0x32, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0d, 0x64, 0x69, 0x73, 0x74, 0x72, 0x69,
+	0x62, 0x75, 0x63, 0x69, 0x6f, 0x6e, 0x32, 0x12, 0x24, 0x0a, 0x0d, 0x64, 0x69, 0x73, 0x74, 0x72,
+	0x69, 0x62, 0x75, 0x63, 0x69, 0x6f, 0x6e, 0x33, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0d,
+	0x64, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x63, 0x69, 0x6f, 0x6e, 0x33, 0x32, 0x5b, 0x0a,
+	0x06, 0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x51, 0x0a, 0x0b, 0x45, 0x6e, 0x76, 0x69, 0x61,
+	0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x12, 0x1e, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f,
+	0x72, 0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f,
+	0x72, 0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x28, 0x01, 0x30, 0x01, 0x32, 0x63, 0x0a, 0x0b, 0x44, 0x69,
+	0x73, 0x74, 0x72, 0x69, 0x62, 0x75, 0x69, 0x64, 0x6f, 0x12, 0x54, 0x0a, 0x0c, 0x45, 0x6e, 0x76,
+	0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x32, 0x12, 0x1f, 0x2e, 0x68, 0x65, 0x6c, 0x6c,
+	0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62,
+	0x72, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x32, 0x1a, 0x1d, 0x2e, 0x68, 0x65, 0x6c,
+	0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69,
+	0x62, 0x72, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0x22, 0x00, 0x28, 0x01, 0x30, 0x01, 0x32,
+	0x74, 0x0a, 0x15, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x43, 0x65, 0x6e, 0x74,
+	0x72, 0x61, 0x6c, 0x69, 0x7a, 0x61, 0x64, 0x6f, 0x12, 0x5b, 0x0a, 0x1b, 0x45, 0x6e, 0x76, 0x69,
+	0x61, 0x72, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x43, 0x65, 0x6e, 0x74, 0x72,
+	0x61, 0x6c, 0x69, 0x7a, 0x61, 0x64, 0x6f, 0x12, 0x1d, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77,
+	0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x43, 0x1a, 0x1b, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f,
+	0x72, 0x6c, 0x64, 0x2e, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x52, 0x65, 0x70,
+	0x6c, 0x79, 0x43, 0x22, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -164,16 +418,24 @@ func file_helloworld_proto_rawDescGZIP() []byte {
 	return file_helloworld_proto_rawDescData
 }
 
-var file_helloworld_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_helloworld_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_helloworld_proto_goTypes = []interface{}{
-	(*EnviarLibroRequest)(nil), // 0: helloworld.EnviarLibroRequest
-	(*EnviarLibroReply)(nil),   // 1: helloworld.EnviarLibroReply
+	(*EnviarLibroRequest)(nil),  // 0: helloworld.EnviarLibroRequest
+	(*EnviarLibroReply)(nil),    // 1: helloworld.EnviarLibroReply
+	(*EnviarLibroRequest2)(nil), // 2: helloworld.EnviarLibroRequest2
+	(*EnviarLibroReply2)(nil),   // 3: helloworld.EnviarLibroReply2
+	(*PropuestaRequestC)(nil),   // 4: helloworld.PropuestaRequestC
+	(*PropuestaReplyC)(nil),     // 5: helloworld.PropuestaReplyC
 }
 var file_helloworld_proto_depIdxs = []int32{
 	0, // 0: helloworld.Packet.EnviarLibro:input_type -> helloworld.EnviarLibroRequest
-	1, // 1: helloworld.Packet.EnviarLibro:output_type -> helloworld.EnviarLibroReply
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 1: helloworld.Distribuido.EnviarLibro2:input_type -> helloworld.EnviarLibroRequest2
+	4, // 2: helloworld.PropuestaCentralizado.EnviarPropuestaCentralizado:input_type -> helloworld.PropuestaRequestC
+	1, // 3: helloworld.Packet.EnviarLibro:output_type -> helloworld.EnviarLibroReply
+	3, // 4: helloworld.Distribuido.EnviarLibro2:output_type -> helloworld.EnviarLibroReply2
+	5, // 5: helloworld.PropuestaCentralizado.EnviarPropuestaCentralizado:output_type -> helloworld.PropuestaReplyC
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -209,6 +471,54 @@ func file_helloworld_proto_init() {
 				return nil
 			}
 		}
+		file_helloworld_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EnviarLibroRequest2); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_helloworld_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EnviarLibroReply2); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_helloworld_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PropuestaRequestC); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_helloworld_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PropuestaReplyC); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -216,9 +526,9 @@ func file_helloworld_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_helloworld_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   6,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   3,
 		},
 		GoTypes:           file_helloworld_proto_goTypes,
 		DependencyIndexes: file_helloworld_proto_depIdxs,
@@ -339,5 +649,183 @@ var _Packet_serviceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
+	Metadata: "helloworld.proto",
+}
+
+// DistribuidoClient is the client API for Distribuido service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type DistribuidoClient interface {
+	EnviarLibro2(ctx context.Context, opts ...grpc.CallOption) (Distribuido_EnviarLibro2Client, error)
+}
+
+type distribuidoClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewDistribuidoClient(cc grpc.ClientConnInterface) DistribuidoClient {
+	return &distribuidoClient{cc}
+}
+
+func (c *distribuidoClient) EnviarLibro2(ctx context.Context, opts ...grpc.CallOption) (Distribuido_EnviarLibro2Client, error) {
+	stream, err := c.cc.NewStream(ctx, &_Distribuido_serviceDesc.Streams[0], "/helloworld.Distribuido/EnviarLibro2", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &distribuidoEnviarLibro2Client{stream}
+	return x, nil
+}
+
+type Distribuido_EnviarLibro2Client interface {
+	Send(*EnviarLibroRequest2) error
+	Recv() (*EnviarLibroReply2, error)
+	grpc.ClientStream
+}
+
+type distribuidoEnviarLibro2Client struct {
+	grpc.ClientStream
+}
+
+func (x *distribuidoEnviarLibro2Client) Send(m *EnviarLibroRequest2) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *distribuidoEnviarLibro2Client) Recv() (*EnviarLibroReply2, error) {
+	m := new(EnviarLibroReply2)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// DistribuidoServer is the server API for Distribuido service.
+type DistribuidoServer interface {
+	EnviarLibro2(Distribuido_EnviarLibro2Server) error
+}
+
+// UnimplementedDistribuidoServer can be embedded to have forward compatible implementations.
+type UnimplementedDistribuidoServer struct {
+}
+
+func (*UnimplementedDistribuidoServer) EnviarLibro2(Distribuido_EnviarLibro2Server) error {
+	return status.Errorf(codes.Unimplemented, "method EnviarLibro2 not implemented")
+}
+
+func RegisterDistribuidoServer(s *grpc.Server, srv DistribuidoServer) {
+	s.RegisterService(&_Distribuido_serviceDesc, srv)
+}
+
+func _Distribuido_EnviarLibro2_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(DistribuidoServer).EnviarLibro2(&distribuidoEnviarLibro2Server{stream})
+}
+
+type Distribuido_EnviarLibro2Server interface {
+	Send(*EnviarLibroReply2) error
+	Recv() (*EnviarLibroRequest2, error)
+	grpc.ServerStream
+}
+
+type distribuidoEnviarLibro2Server struct {
+	grpc.ServerStream
+}
+
+func (x *distribuidoEnviarLibro2Server) Send(m *EnviarLibroReply2) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *distribuidoEnviarLibro2Server) Recv() (*EnviarLibroRequest2, error) {
+	m := new(EnviarLibroRequest2)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+var _Distribuido_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "helloworld.Distribuido",
+	HandlerType: (*DistribuidoServer)(nil),
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "EnviarLibro2",
+			Handler:       _Distribuido_EnviarLibro2_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
+	Metadata: "helloworld.proto",
+}
+
+// PropuestaCentralizadoClient is the client API for PropuestaCentralizado service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type PropuestaCentralizadoClient interface {
+	// Sends a greeting
+	EnviarPropuestaCentralizado(ctx context.Context, in *PropuestaRequestC, opts ...grpc.CallOption) (*PropuestaReplyC, error)
+}
+
+type propuestaCentralizadoClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewPropuestaCentralizadoClient(cc grpc.ClientConnInterface) PropuestaCentralizadoClient {
+	return &propuestaCentralizadoClient{cc}
+}
+
+func (c *propuestaCentralizadoClient) EnviarPropuestaCentralizado(ctx context.Context, in *PropuestaRequestC, opts ...grpc.CallOption) (*PropuestaReplyC, error) {
+	out := new(PropuestaReplyC)
+	err := c.cc.Invoke(ctx, "/helloworld.PropuestaCentralizado/EnviarPropuestaCentralizado", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PropuestaCentralizadoServer is the server API for PropuestaCentralizado service.
+type PropuestaCentralizadoServer interface {
+	// Sends a greeting
+	EnviarPropuestaCentralizado(context.Context, *PropuestaRequestC) (*PropuestaReplyC, error)
+}
+
+// UnimplementedPropuestaCentralizadoServer can be embedded to have forward compatible implementations.
+type UnimplementedPropuestaCentralizadoServer struct {
+}
+
+func (*UnimplementedPropuestaCentralizadoServer) EnviarPropuestaCentralizado(context.Context, *PropuestaRequestC) (*PropuestaReplyC, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnviarPropuestaCentralizado not implemented")
+}
+
+func RegisterPropuestaCentralizadoServer(s *grpc.Server, srv PropuestaCentralizadoServer) {
+	s.RegisterService(&_PropuestaCentralizado_serviceDesc, srv)
+}
+
+func _PropuestaCentralizado_EnviarPropuestaCentralizado_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PropuestaRequestC)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PropuestaCentralizadoServer).EnviarPropuestaCentralizado(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/helloworld.PropuestaCentralizado/EnviarPropuestaCentralizado",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PropuestaCentralizadoServer).EnviarPropuestaCentralizado(ctx, req.(*PropuestaRequestC))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _PropuestaCentralizado_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "helloworld.PropuestaCentralizado",
+	HandlerType: (*PropuestaCentralizadoServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "EnviarPropuestaCentralizado",
+			Handler:    _PropuestaCentralizado_EnviarPropuestaCentralizado_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "helloworld.proto",
 }

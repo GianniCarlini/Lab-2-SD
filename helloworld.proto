@@ -6,14 +6,39 @@ package helloworld;
 service Packet {
   rpc EnviarLibro (stream EnviarLibroRequest) returns (stream EnviarLibroReply) {} 
 }
-
+service Distribuido {
+  rpc EnviarLibro2 (stream EnviarLibroRequest2) returns (stream EnviarLibroReply2) {} 
+}
+service PropuestaCentralizado {
+  // Sends a greeting
+  rpc EnviarPropuestaCentralizado (PropuestaRequestC) returns (PropuestaReplyC) {}
+}
 //----------------------------------------------------------
 message EnviarLibroRequest {
     bytes id = 1;
     string name = 2;
+    uint64 numero = 3;
 }
 
 message EnviarLibroReply {
     string id = 1;
 }
 //-----------------------------------------------------------
+message EnviarLibroRequest2 {
+    bytes id = 1;
+    string name = 2;
+}
+
+message EnviarLibroReply2 {
+    string id = 1;
+}
+//-----------------------------------------------------------
+message PropuestaRequestC {
+    repeated string propuesta = 1;
+}
+
+message PropuestaReplyC {
+    repeated string distribucion1 = 1;
+    repeated string distribucion2 = 2;
+    repeated string distribucion3 = 3;
+}
