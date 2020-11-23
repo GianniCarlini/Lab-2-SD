@@ -11,11 +11,12 @@ import (
 	"context"
 	"time"
 
+
 	pb "github.com/GianniCarlini/Lab-2-SD/proto"
 	"google.golang.org/grpc"
 )
 const (
-	ip1 = "IPDATA1"
+	//ip1 = "IPDATA1"
 	//ip2 = "IPDATA1"
 	//ip3 = "IPDATA1"
 	port = ":50051" //puerto de data1server
@@ -50,7 +51,7 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 		}
 
 		partBuffer := in.Id
-		fileName := in.Name+"_"+ip1
+		fileName := in.Name
 		resp := pb.EnviarLibroReply{Id: in.Name}
 		if err := stream.Send(&resp); err != nil { 
 			log.Printf("send error %v", err)
@@ -82,7 +83,7 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 			fmt.Println("toy creando una distri")
 			p1,p2,p3 := CrearDistribucion(xd)
 
-			r, err := c.EnviarPropuestaCentralizado(ctx, &pb.PropuestaRequestC{Propuesta: xd, Propuesta1: p1, Propuesta2: p2, Propuesta3: p3})
+			r, err := c.EnviarPropuestaCentralizado(ctx, &pb.PropuestaRequestC{Propuesta: xd, Propuesta1: p1, Propuesta2: p2, Propuesta3: p3, Nombre: in.GetLibro()})
 			if err != nil {
 				log.Fatalf("could not greet: %v", err)
 			}
@@ -128,7 +129,7 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 		}
 
 		partBuffer := in.Id
-		fileName := in.Name+"_"+ip1
+		fileName := in.Name
 		resp := pb.EnviarLibroReply2{Id: in.Name}
 		if err := stream.Send(&resp); err != nil { 
 			log.Printf("send error %v", err)

@@ -20,6 +20,7 @@ message EnviarLibroRequest {
     bytes id = 1;
     string name = 2;
     uint64 numero = 3;
+    string libro = 4;
 }
 
 message EnviarLibroReply {
@@ -40,6 +41,7 @@ message PropuestaRequestC {
     repeated string propuesta1 = 2;
     repeated string propuesta2 = 3;
     repeated string propuesta3 = 4;
+    string nombre = 5;
 }
 
 message PropuestaReplyC {

@@ -74,7 +74,7 @@ import (
 								//------------------envio de chunks------------------------------------
 								// write to disk
 								fileName := nameLibro+"_" + strconv.FormatUint(i, 10)
-								msg := &pb.EnviarLibroRequest{Id: partBuffer, Name: fileName, Numero: totalPartsNum}
+								msg := &pb.EnviarLibroRequest{Id: partBuffer, Name: fileName, Numero: totalPartsNum, Libro: nameLibro}
 								stream.Send(msg)
 								resp, err := stream.Recv()
 								if err != nil {
