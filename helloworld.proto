@@ -10,8 +10,10 @@ service Distribuido {
   rpc EnviarLibro2 (stream EnviarLibroRequest2) returns (stream EnviarLibroReply2) {} 
 }
 service PropuestaCentralizado {
-  // Sends a greeting
   rpc EnviarPropuestaCentralizado (PropuestaRequestC) returns (PropuestaReplyC) {}
+}
+service LibroDatas {
+  rpc EnviarLibroData (DataRequestC) returns (DataReplyC) {}
 }
 //----------------------------------------------------------
 message EnviarLibroRequest {
@@ -35,10 +37,23 @@ message EnviarLibroReply2 {
 //-----------------------------------------------------------
 message PropuestaRequestC {
     repeated string propuesta = 1;
+    repeated string propuesta1 = 2;
+    repeated string propuesta2 = 3;
+    repeated string propuesta3 = 4;
 }
 
 message PropuestaReplyC {
     repeated string distribucion1 = 1;
     repeated string distribucion2 = 2;
     repeated string distribucion3 = 3;
+}
+//-----------------------------------------------------------
+message DataRequestC {
+    repeated string distribucion = 1;
+    repeated bytes bites = 2;
+    int64 numero = 3;
+}
+
+message DataReplyC {
+   string estado = 1;
 }

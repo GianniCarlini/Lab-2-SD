@@ -28,6 +28,12 @@ const (
 
 type server struct {
 }
+func CrearDistribucion (prop []string) (p1 []string, p2 []string, p3 []string){
+	p1 = append(p1,prop[0])
+	p2 = append(p2,prop[1])
+	p3 = prop[2:]
+	return p1,p2,p3
+}
 
 func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 	log.Println("Started stream Centralizado")
@@ -59,8 +65,8 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 		ioutil.WriteFile(fileName, partBuffer, os.ModeAppend)*/
 		contador++
 		fmt.Println("Split to : ", fileName)
-		b = append(b,partBuffer)
-		xd = append(xd,fileName)
+		b = append(b,partBuffer) //arreglo con los bytes de los archivos
+		xd = append(xd,fileName) //arreglo con los nombres de los archivos
 		if uint64(contador) == in.Numero+1{
 			b1 := b[:in.Numero/3]
 			b2 := b[in.Numero/3:2*in.Numero/3]
@@ -73,7 +79,10 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 			c := pb.NewPropuestaCentralizadoClient(conn)
 			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			defer cancel()
-			r, err := c.EnviarPropuestaCentralizado(ctx, &pb.PropuestaRequestC{Propuesta: xd})
+			fmt.Println("toy creando una distri")
+			p1,p2,p3 := CrearDistribucion(xd)
+
+			r, err := c.EnviarPropuestaCentralizado(ctx, &pb.PropuestaRequestC{Propuesta: xd, Propuesta1: p1, Propuesta2: p2, Propuesta3: p3})
 			if err != nil {
 				log.Fatalf("could not greet: %v", err)
 			}
