@@ -48,6 +48,7 @@ message PropuestaReplyC {
     repeated string distribucion1 = 1;
     repeated string distribucion2 = 2;
     repeated string distribucion3 = 3;
+    int64 tipo = 4;
 }
 //-----------------------------------------------------------
 message DataRequestC {

@@ -15,13 +15,11 @@ import (
 	"google.golang.org/grpc"
 )
 const (
-	//ip1 = "IPDATA1"
-	//ip2 = "IPDATA1"
-	//ip3 = "IPDATA1"
-	port = ":50054" //puerto de data1server
+
+	port = ":50053" //puerto de data1server
 	address = "localhost:50052" //namenode
 	address2 = "localhost:50051" //data1 no cordinador
-	address3 = "localhost:50053" //data 3 no cordinador
+	address3 = "localhost:50054" //data 2 no cordinador
 
 
 )
@@ -37,6 +35,7 @@ func CrearDistribucion (prop []string) (p1 []string, p2 []string, p3 []string){
 }
 
 func (s *server) EnviarLibroData(ctx context.Context, in *pb.DataRequestC) (*pb.DataReplyC, error) {
+	fmt.Println(in.GetDistribucion())
 	fmt.Println(len(in.GetBites()))
 	for i := range in.GetDistribucion(){
 		file, err := os.Create(in.GetDistribucion()[i])
@@ -48,7 +47,7 @@ func (s *server) EnviarLibroData(ctx context.Context, in *pb.DataRequestC) (*pb.
 		// write/save buffer to disk
 		ioutil.WriteFile(in.GetDistribucion()[i], in.GetBites()[i], os.ModeAppend)
 	}
-	return &pb.DataReplyC{Estado: "OK DATA2"}, nil
+	return &pb.DataReplyC{Estado: "OK DATA3"}, nil
 }
 func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 	log.Println("Started stream Centralizado")
@@ -158,7 +157,6 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 		if err != nil {
 			return err
 		}
-
 		partBuffer := in.Id
 		fileName := in.Name
 		resp := pb.EnviarLibroReply2{Id: in.Name}

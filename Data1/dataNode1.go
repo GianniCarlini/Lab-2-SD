@@ -19,11 +19,11 @@ const (
 	//ip1 = "IPDATA1"
 	//ip2 = "IPDATA1"
 	//ip3 = "IPDATA1"
-	port2 = ":50055"
+	//port2 = ":50055"
 	port = ":50051" //puerto de data1server
 	address = "localhost:50052" //namenode
 	address2 = "localhost:50054" //data2
-	//address3 = "localhost:50053" //namenode
+	address3 = "localhost:50053" //data 3 no cordinador
 
 
 )
@@ -72,7 +72,8 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 		if uint64(contador) == in.Numero+1{
 			b1 := b[:in.Numero/3]
 			b2 := b[in.Numero/3:2*in.Numero/3]
-			//b3 := b[2*in.Numero/3:]
+			b3 := b[2*in.Numero/3:]
+			b3i := b[2:]
 			conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 			if err != nil {
 				log.Fatalf("did not connect: %v", err)
@@ -90,6 +91,15 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 			}
 			fmt.Println(r.GetDistribucion1())
 			dist2 :=r.GetDistribucion2()
+			dist3 :=r.GetDistribucion3()
+			var distri3 [][]byte
+			if r.GetTipo() == int64(1){
+				fmt.Println("soy inicial")
+				distri3 = b3i
+			}else{
+				fmt.Println("soy secundario")
+				distri3 = b3
+			}
 			//-------------------creo mis archivos---------------------------------
 			for i := range r.GetDistribucion1(){
 				file, err := os.Create(r.GetDistribucion1()[i])
@@ -114,6 +124,20 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 				log.Fatalf("could not greet: %v", err)
 			}
 			fmt.Println(r2.GetEstado())
+			//------------------------------------------
+			conn3, err3 := grpc.Dial(address3, grpc.WithInsecure(), grpc.WithBlock())
+			if err3 != nil {
+				log.Fatalf("did not connect: %v", err3)
+			}
+			defer conn3.Close()
+			c3 := pb.NewLibroDatasClient(conn3)
+			ctx3, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
+			r3, err4 := c3.EnviarLibroData(ctx3, &pb.DataRequestC{Distribucion: dist3, Bites: distri3, Numero: int64(in.Numero/3)})
+			if err4 != nil {
+				log.Fatalf("could not greet: %v", err)
+			}
+			fmt.Println(r3.GetEstado())
 		}
 	}
 }
@@ -162,7 +186,7 @@ func (s *server) EnviarLibroData(ctx context.Context, in *pb.DataRequestC) (*pb.
 		ioutil.WriteFile(in.GetDistribucion()[i], in.GetBites()[i], os.ModeAppend)
 	}
 
-	return &pb.DataReplyC{Estado: "OK DATA2"}, nil
+	return &pb.DataReplyC{Estado: "OK DATA1"}, nil
 }
 func main() {
 	var comportamiento int

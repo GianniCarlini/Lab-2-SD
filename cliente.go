@@ -31,7 +31,7 @@ import (
 				fmt.Scanln(&comportamiento)
 				switch comportamiento {
 					case 1:
-						conn, err := grpc.Dial("localhost:50054", grpc.WithInsecure())
+						conn, err := grpc.Dial("localhost:50053", grpc.WithInsecure())
 						if err != nil {
 							log.Fatalf("failed to connect: %s", err)
 						}
@@ -141,7 +141,7 @@ import (
 						for j := uint64(0); j < totalPartsNum; j++ {
 			
 								//read a chunk
-								currentChunkFileName := nameLibro+ "_" + strconv.FormatUint(j, 10)+"_IPDATA1"
+								currentChunkFileName := nameLibro+ "_" + strconv.FormatUint(j, 10)
 			
 								newFileChunk, err := os.Open(currentChunkFileName)
 			

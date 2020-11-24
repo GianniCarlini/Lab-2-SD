@@ -25,6 +25,8 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 	p1 := in.GetPropuesta1()
 	p2 := in.GetPropuesta2()
 	p3 := in.GetPropuesta3()
+	fmt.Println("el largo de p3 es:")
+	fmt.Println(in.GetPropuesta3())
 	largo := len(in.GetPropuesta())
 	fmt.Println(largo)
 	s1 := rand.NewSource(time.Now().UnixNano())
@@ -83,7 +85,7 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 				log.Fatal(err)
 			}
 		}
-		return &pb.PropuestaReplyC{Distribucion1: p1,Distribucion2: p2,Distribucion3: p3}, nil
+		return &pb.PropuestaReplyC{Distribucion1: p1,Distribucion2: p2,Distribucion3: p3, Tipo: 1}, nil
 	}else{
 		for{
 			s2 := rand.NewSource(time.Now().UnixNano())
@@ -139,7 +141,7 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 						log.Fatal(err)
 					}
 				}
-				return &pb.PropuestaReplyC{Distribucion1: d1,Distribucion2: d2,Distribucion3: d3}, nil
+				return &pb.PropuestaReplyC{Distribucion1: d1,Distribucion2: d2,Distribucion3: d3, Tipo: 2}, nil
 			}else{
 				fmt.Println("Propuesta rechazada")
 				continue
