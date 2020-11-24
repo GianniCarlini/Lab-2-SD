@@ -19,6 +19,7 @@ const (
 	//ip1 = "IPDATA1"
 	//ip2 = "IPDATA1"
 	//ip3 = "IPDATA1"
+	port2 = ":50055"
 	port = ":50051" //puerto de data1server
 	address = "localhost:50052" //namenode
 	address2 = "localhost:50054" //data2
@@ -147,6 +148,22 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 		contador++
 	}
 }
+//-------------no cordinador------------------------------------------
+func (s *server) EnviarLibroData(ctx context.Context, in *pb.DataRequestC) (*pb.DataReplyC, error) {
+		
+	for i := range in.GetDistribucion(){
+		file, err := os.Create(in.GetDistribucion()[i])
+		defer file.Close()
+		if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+		}
+		// write/save buffer to disk
+		ioutil.WriteFile(in.GetDistribucion()[i], in.GetBites()[i], os.ModeAppend)
+	}
+
+	return &pb.DataReplyC{Estado: "OK DATA2"}, nil
+}
 func main() {
 	var comportamiento int
 	fmt.Println("Ingrese 1 para modo centralizado")
@@ -154,19 +171,40 @@ func main() {
 	fmt.Scanln(&comportamiento)
 	switch comportamiento{
 		case 1:
-			lis, err := net.Listen("tcp", port)
+			//------------------------------------------
+			var cordinador int
+			fmt.Println("ingrese 1 si este es el nodo cordinador, de no ser ingrese 2")
+			fmt.Scanln(&cordinador)
+			switch cordinador{
+			case 1:
+				lis, err := net.Listen("tcp", port)
 
-			if err != nil {
-				log.Fatalf("failed to listen: %v", err)
+				if err != nil {
+					log.Fatalf("failed to listen: %v", err)
+				}
+			
+				s := grpc.NewServer()
+			
+				pb.RegisterPacketServer(s, &server{})
+			
+				if err := s.Serve(lis); err != nil {
+					log.Fatalf("failed to serve: %v", err)
+				}
+			case 2:
+				lis, err := net.Listen("tcp", port)
+
+				if err != nil {
+					log.Fatalf("failed to listen: %v", err)
+				}
+				s := grpc.NewServer()
+			
+				pb.RegisterLibroDatasServer(s, &server{})
+			
+				if err := s.Serve(lis); err != nil {
+					log.Fatalf("failed to serve: %v", err)
+				}
 			}
-		
-			s := grpc.NewServer()
-		
-			pb.RegisterPacketServer(s, &server{})
-		
-			if err := s.Serve(lis); err != nil {
-				log.Fatalf("failed to serve: %v", err)
-			}
+
 		case 2:
 			lis, err := net.Listen("tcp", port)
 

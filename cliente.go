@@ -31,7 +31,7 @@ import (
 				fmt.Scanln(&comportamiento)
 				switch comportamiento {
 					case 1:
-						conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+						conn, err := grpc.Dial("localhost:50054", grpc.WithInsecure())
 						if err != nil {
 							log.Fatalf("failed to connect: %s", err)
 						}
