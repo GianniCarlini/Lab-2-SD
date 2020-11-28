@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 	"bufio"
-
+	"time"
 	"log"
 
 	"golang.org/x/net/context"
@@ -15,7 +15,17 @@ import (
 
 	pb "github.com/GianniCarlini/Lab-2-SD/proto"
 )
+const (
+	//ip1 = "IPDATA1"
+	//ip2 = "IPDATA1"
+	//ip3 = "IPDATA1"
+	address = "localhost:50052" //namenode
+	address2 = "localhost:50054" //data2
+	address3 = "localhost:50053" //data 3
+	address4 = "localhost:50051" //data1
 
+
+)
  func main() {
 	fmt.Println("Bienvenido querido cliente")
 		var tipo int
@@ -85,9 +95,21 @@ import (
 						stream.CloseSend()
 						
 					case 2:
+						conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+						if err != nil {
+							log.Fatalf("did not connect: %v", err)
+						}
+						defer conn.Close()
+						c := pb.NewPropuestaCentralizadoClient(conn)
+						ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+						defer cancel()
+						r, err := c.PedirLista(ctx, &pb.ListaRequest{Peticion: "I need the list"})
+						fmt.Println("Listado de libros disponibles:")
+						for _,i := range r.GetLista(){
+							fmt.Println(i)
+						}
 						//-----------------------------reconstruccion de archivos------------------------
 						fmt.Println("Ingrese el nombre del libro")
-						fmt.Println("Aca mostrar lista")
 						var nameLibro string
 						fmt.Scanln(&nameLibro)
 

@@ -18,17 +18,31 @@ const (
 	port = ":50052"
 )
 
+var lista []string
+
 type server struct {
+}
+func existeEnArreglo(arreglo []string, busqueda string) bool {
+	for _, numero := range arreglo {
+		if numero == busqueda {
+			return true
+		}
+	}
+	return false
 }
 
 func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.PropuestaRequestC) (*pb.PropuestaReplyC, error) {
+
+	nombre := in.GetNombre()
+	if !(existeEnArreglo(lista, nombre)){
+		lista = append(lista,nombre)
+	}
+	fmt.Println(lista)
 	p1 := in.GetPropuesta1()
 	p2 := in.GetPropuesta2()
 	p3 := in.GetPropuesta3()
-	fmt.Println("el largo de p3 es:")
-	fmt.Println(in.GetPropuesta3())
 	largo := len(in.GetPropuesta())
-	fmt.Println(largo)
+
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
 	aceptar := r1.Intn(101)
@@ -150,7 +164,11 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 	}
 	
 }
+func (s *server) PedirLista(ctx context.Context, in *pb.ListaRequest) (*pb.ListaReply, error) {
+	fmt.Println("Enviando listado de libros")
 
+	return &pb.ListaReply{Lista: lista}, nil
+}
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {

@@ -11,6 +11,7 @@ service Distribuido {
 }
 service PropuestaCentralizado {
   rpc EnviarPropuestaCentralizado (PropuestaRequestC) returns (PropuestaReplyC) {}
+  rpc PedirLista (ListaRequest) returns (ListaReply) {}
 }
 service LibroDatas {
   rpc EnviarLibroData (DataRequestC) returns (DataReplyC) {}
@@ -59,4 +60,12 @@ message DataRequestC {
 
 message DataReplyC {
    string estado = 1;
+}
+//-------------------------------------------------------------
+message ListaRequest {
+    string peticion = 1;
+}
+
+message ListaReply {
+   repeated string lista = 1;
 }
