@@ -176,6 +176,22 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 		contador++
 	}
 }
+func (s *server) EnviarChunk(ctx context.Context, in *pb.DataChunkRequest) (*pb.DataChunkReply, error) {
+	log.Printf("Received: %v", in.GetFilechunk())
+	b, err := ioutil.ReadFile(in.GetFilechunk()) // just pass the file name
+       if err != nil {
+           fmt.Print(err)
+       }
+	return &pb.DataChunkReply{Bitaso: b}, nil
+}
+func (s *server) EnviarChunk2(ctx context.Context, in *pb.DataChunkRequest2) (*pb.DataChunkReply2, error) {
+	log.Printf("Received: %v", in.GetFilechunk())
+	b, err := ioutil.ReadFile(in.GetFilechunk()) // just pass the file name
+       if err != nil {
+           fmt.Print(err)
+       }
+	return &pb.DataChunkReply2{Bitaso: b}, nil
+}
 func main() {
 		var comportamiento int
 		fmt.Println("Ingrese 1 para modo centralizado")

@@ -37,7 +37,6 @@ func CrearDistribucion (prop []string) (p1 []string, p2 []string, p3 []string){
 }
 
 func (s *server) EnviarLibroData(ctx context.Context, in *pb.DataRequestC) (*pb.DataReplyC, error) {
-	fmt.Println(len(in.GetBites()))
 	for i := range in.GetDistribucion(){
 		file, err := os.Create(in.GetDistribucion()[i])
 		defer file.Close()
@@ -177,6 +176,22 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 		fmt.Println("Split to : ", fileName)
 		contador++
 	}
+}
+func (s *server) EnviarChunk(ctx context.Context, in *pb.DataChunkRequest) (*pb.DataChunkReply, error) {
+	log.Printf("Received: %v", in.GetFilechunk())
+	b, err := ioutil.ReadFile(in.GetFilechunk()) // just pass the file name
+       if err != nil {
+           fmt.Print(err)
+       }
+	return &pb.DataChunkReply{Bitaso: b}, nil
+}
+func (s *server) EnviarChunk2(ctx context.Context, in *pb.DataChunkRequest2) (*pb.DataChunkReply2, error) {
+	log.Printf("Received: %v", in.GetFilechunk())
+	b, err := ioutil.ReadFile(in.GetFilechunk()) // just pass the file name
+       if err != nil {
+           fmt.Print(err)
+       }
+	return &pb.DataChunkReply2{Bitaso: b}, nil
 }
 func main() {
 		var comportamiento int

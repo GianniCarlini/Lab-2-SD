@@ -19,7 +19,7 @@ const (
 	//ip1 = "IPDATA1"
 	//ip2 = "IPDATA1"
 	//ip3 = "IPDATA1"
-	//port2 = ":50055"
+	port2 = ":50055"
 	port = ":50051" //puerto de data1server
 	address = "localhost:50052" //namenode
 	address2 = "localhost:50054" //data2
@@ -172,7 +172,7 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 		contador++
 	}
 }
-//-------------no cordinador------------------------------------------
+//-------------------------------------------------------
 func (s *server) EnviarLibroData(ctx context.Context, in *pb.DataRequestC) (*pb.DataReplyC, error) {
 		
 	for i := range in.GetDistribucion(){
@@ -187,6 +187,23 @@ func (s *server) EnviarLibroData(ctx context.Context, in *pb.DataRequestC) (*pb.
 	}
 
 	return &pb.DataReplyC{Estado: "OK DATA1"}, nil
+}
+//-------------------------------------------------------
+func (s *server) EnviarChunk(ctx context.Context, in *pb.DataChunkRequest) (*pb.DataChunkReply, error) {
+	log.Printf("Received: %v", in.GetFilechunk())
+	b, err := ioutil.ReadFile(in.GetFilechunk()) // just pass the file name
+       if err != nil {
+           fmt.Print(err)
+       }
+	return &pb.DataChunkReply{Bitaso: b}, nil
+}
+func (s *server) EnviarChunk2(ctx context.Context, in *pb.DataChunkRequest2) (*pb.DataChunkReply2, error) {
+	log.Printf("Received: %v", in.GetFilechunk())
+	b, err := ioutil.ReadFile(in.GetFilechunk()) // just pass the file name
+       if err != nil {
+           fmt.Print(err)
+       }
+	return &pb.DataChunkReply2{Bitaso: b}, nil
 }
 func main() {
 	var comportamiento int
@@ -214,6 +231,7 @@ func main() {
 				if err := s.Serve(lis); err != nil {
 					log.Fatalf("failed to serve: %v", err)
 				}
+
 			case 2:
 				lis, err := net.Listen("tcp", port)
 

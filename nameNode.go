@@ -15,10 +15,14 @@ import (
 )
 
 const (
+	ip2 = "localhost:50054" //data2
+	ip3 = "localhost:50053" //data 3
+	ip1 = "localhost:50051" //data1
 	port = ":50052"
 )
 
 var lista []string
+var datachunks [][]string
 
 type server struct {
 }
@@ -30,10 +34,20 @@ func existeEnArreglo(arreglo []string, busqueda string) bool {
 	}
 	return false
 }
-
+/*func buscarArreglo(nombre string, arreglo [][]string) []string {
+	var retorno []string
+	for _, numero := range arreglo {
+		if numero[0] == nombre {
+			retorno = numero
+		}
+	}
+	return retorno
+}
+*/
 func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.PropuestaRequestC) (*pb.PropuestaReplyC, error) {
-
+	var datachunk []string
 	nombre := in.GetNombre()
+	datachunk = append(datachunk, nombre)
 	if !(existeEnArreglo(lista, nombre)){
 		lista = append(lista,nombre)
 	}
@@ -66,7 +80,8 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 				fmt.Print(err)
 			}
 			
-			content = append(content, []byte(p1[i]+" ip1"+"\n")...)
+			content = append(content, []byte(p1[i]+" "+ip1+"\n")...)
+			datachunk = append(datachunk, p1[i]+","+ip1)
 
 			err = ioutil.WriteFile("log.txt", content, 0644)
 			if err != nil {
@@ -79,7 +94,8 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 				fmt.Print(err)
 			}
 			
-			content = append(content, []byte(p2[i]+" ip2"+"\n")...)
+			content = append(content, []byte(p2[i]+" "+ip2+"\n")...)
+			datachunk = append(datachunk, p2[i]+","+ip2)
 			
 			err = ioutil.WriteFile("log.txt", content, 0644)
 			if err != nil {
@@ -92,13 +108,16 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 				fmt.Print(err)
 			}
 			
-			content = append(content, []byte(p3[i]+" ip3"+"\n")...)
+			content = append(content, []byte(p3[i]+" "+ip3+"\n")...)
+			datachunk = append(datachunk, p3[i]+","+ip3)
 
 			err = ioutil.WriteFile("log.txt", content, 0644)
 			if err != nil {
 				log.Fatal(err)
 			}
+			
 		}
+		datachunks = append(datachunks, datachunk)
 		return &pb.PropuestaReplyC{Distribucion1: p1,Distribucion2: p2,Distribucion3: p3, Tipo: 1}, nil
 	}else{
 		for{
@@ -114,6 +133,7 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 				d1 = in.GetPropuesta()[:len(in.GetPropuesta())/3]
 				d2 = in.GetPropuesta()[(len(in.GetPropuesta())/3):(2*len(in.GetPropuesta())/3)]
 				d3 = in.GetPropuesta()[(2*len(in.GetPropuesta())/3):]
+				fmt.Println(d1)
 				fmt.Println(d2)
 				fmt.Println(d3)
 				for i := range d1{
@@ -122,8 +142,8 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 						fmt.Print(err)
 					}
 					
-					content = append(content, []byte(d1[i]+" ip1"+"\n")...)
-		
+					content = append(content, []byte(d1[i]+" "+ip1+"\n")...)
+					datachunk = append(datachunk, d1[i]+","+ip1)
 					err = ioutil.WriteFile("log.txt", content, 0644)
 					if err != nil {
 						log.Fatal(err)
@@ -135,7 +155,8 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 						fmt.Print(err)
 					}
 					
-					content = append(content, []byte(d2[i]+" ip2"+"\n")...)
+					content = append(content, []byte(d2[i]+" "+ip2+"\n")...)
+					datachunk = append(datachunk, d2[i]+","+ip2)
 					
 					err = ioutil.WriteFile("log.txt", content, 0644)
 					if err != nil {
@@ -148,13 +169,15 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 						fmt.Print(err)
 					}
 					
-					content = append(content, []byte(d3[i]+" ip3"+"\n")...)
+					content = append(content, []byte(d3[i]+" "+ip3+"\n")...)
+					datachunk = append(datachunk, d3[i]+","+ip3)
 		
 					err = ioutil.WriteFile("log.txt", content, 0644)
 					if err != nil {
 						log.Fatal(err)
 					}
 				}
+				datachunks = append(datachunks, datachunk)
 				return &pb.PropuestaReplyC{Distribucion1: d1,Distribucion2: d2,Distribucion3: d3, Tipo: 2}, nil
 			}else{
 				fmt.Println("Propuesta rechazada")
@@ -166,8 +189,17 @@ func (s *server) EnviarPropuestaCentralizado(ctx context.Context, in *pb.Propues
 }
 func (s *server) PedirLista(ctx context.Context, in *pb.ListaRequest) (*pb.ListaReply, error) {
 	fmt.Println("Enviando listado de libros")
-
 	return &pb.ListaReply{Lista: lista}, nil
+}
+func (s *server) PedirChunks(ctx context.Context, in *pb.ChunkRequest) (*pb.ChunkReply, error) {
+	fmt.Println("Enviando locacion chunks")
+	var retorno []string
+	for _,numero := range datachunks {
+		if numero[0] == in.GetBook() {
+			retorno = numero
+		}
+	}
+	return &pb.ChunkReply{Location: retorno}, nil
 }
 func main() {
 	lis, err := net.Listen("tcp", port)

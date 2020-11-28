@@ -608,6 +608,291 @@ func (x *ListaReply) GetLista() []string {
 	return nil
 }
 
+//-------------------------------------------------------------
+type ChunkRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Book string `protobuf:"bytes,1,opt,name=book,proto3" json:"book,omitempty"`
+}
+
+func (x *ChunkRequest) Reset() {
+	*x = ChunkRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ChunkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChunkRequest) ProtoMessage() {}
+
+func (x *ChunkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChunkRequest.ProtoReflect.Descriptor instead.
+func (*ChunkRequest) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ChunkRequest) GetBook() string {
+	if x != nil {
+		return x.Book
+	}
+	return ""
+}
+
+type ChunkReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Location []string `protobuf:"bytes,1,rep,name=location,proto3" json:"location,omitempty"`
+}
+
+func (x *ChunkReply) Reset() {
+	*x = ChunkReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ChunkReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChunkReply) ProtoMessage() {}
+
+func (x *ChunkReply) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChunkReply.ProtoReflect.Descriptor instead.
+func (*ChunkReply) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *ChunkReply) GetLocation() []string {
+	if x != nil {
+		return x.Location
+	}
+	return nil
+}
+
+//-------------------------------------------------------------
+type DataChunkRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Filechunk string `protobuf:"bytes,1,opt,name=filechunk,proto3" json:"filechunk,omitempty"`
+}
+
+func (x *DataChunkRequest) Reset() {
+	*x = DataChunkRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DataChunkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DataChunkRequest) ProtoMessage() {}
+
+func (x *DataChunkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DataChunkRequest.ProtoReflect.Descriptor instead.
+func (*DataChunkRequest) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *DataChunkRequest) GetFilechunk() string {
+	if x != nil {
+		return x.Filechunk
+	}
+	return ""
+}
+
+type DataChunkReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Bitaso []byte `protobuf:"bytes,1,opt,name=bitaso,proto3" json:"bitaso,omitempty"`
+}
+
+func (x *DataChunkReply) Reset() {
+	*x = DataChunkReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DataChunkReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DataChunkReply) ProtoMessage() {}
+
+func (x *DataChunkReply) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DataChunkReply.ProtoReflect.Descriptor instead.
+func (*DataChunkReply) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *DataChunkReply) GetBitaso() []byte {
+	if x != nil {
+		return x.Bitaso
+	}
+	return nil
+}
+
+//-------------------------------------------------------------
+type DataChunkRequest2 struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Filechunk string `protobuf:"bytes,1,opt,name=filechunk,proto3" json:"filechunk,omitempty"`
+}
+
+func (x *DataChunkRequest2) Reset() {
+	*x = DataChunkRequest2{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DataChunkRequest2) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DataChunkRequest2) ProtoMessage() {}
+
+func (x *DataChunkRequest2) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DataChunkRequest2.ProtoReflect.Descriptor instead.
+func (*DataChunkRequest2) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *DataChunkRequest2) GetFilechunk() string {
+	if x != nil {
+		return x.Filechunk
+	}
+	return ""
+}
+
+type DataChunkReply2 struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Bitaso []byte `protobuf:"bytes,1,opt,name=bitaso,proto3" json:"bitaso,omitempty"`
+}
+
+func (x *DataChunkReply2) Reset() {
+	*x = DataChunkReply2{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_helloworld_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DataChunkReply2) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DataChunkReply2) ProtoMessage() {}
+
+func (x *DataChunkReply2) ProtoReflect() protoreflect.Message {
+	mi := &file_helloworld_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DataChunkReply2.ProtoReflect.Descriptor instead.
+func (*DataChunkReply2) Descriptor() ([]byte, []int) {
+	return file_helloworld_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *DataChunkReply2) GetBitaso() []byte {
+	if x != nil {
+		return x.Bitaso
+	}
+	return nil
+}
+
 var File_helloworld_proto protoreflect.FileDescriptor
 
 var file_helloworld_proto_rawDesc = []byte{
@@ -661,36 +946,67 @@ var file_helloworld_proto_rawDesc = []byte{
 	0x63, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x65, 0x74, 0x69,
 	0x63, 0x69, 0x6f, 0x6e, 0x22, 0x22, 0x0a, 0x0a, 0x4c, 0x69, 0x73, 0x74, 0x61, 0x52, 0x65, 0x70,
 	0x6c, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x73, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03, 0x28,
-	0x09, 0x52, 0x05, 0x6c, 0x69, 0x73, 0x74, 0x61, 0x32, 0x5b, 0x0a, 0x06, 0x50, 0x61, 0x63, 0x6b,
-	0x65, 0x74, 0x12, 0x51, 0x0a, 0x0b, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72,
-	0x6f, 0x12, 0x1e, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x45,
-	0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x1c, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x45,
-	0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22,
-	0x00, 0x28, 0x01, 0x30, 0x01, 0x32, 0x63, 0x0a, 0x0b, 0x44, 0x69, 0x73, 0x74, 0x72, 0x69, 0x62,
-	0x75, 0x69, 0x64, 0x6f, 0x12, 0x54, 0x0a, 0x0c, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69,
-	0x62, 0x72, 0x6f, 0x32, 0x12, 0x1f, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c,
-	0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x32, 0x1a, 0x1d, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72,
-	0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x52, 0x65,
-	0x70, 0x6c, 0x79, 0x32, 0x22, 0x00, 0x28, 0x01, 0x30, 0x01, 0x32, 0xb6, 0x01, 0x0a, 0x15, 0x50,
-	0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x43, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x69,
-	0x7a, 0x61, 0x64, 0x6f, 0x12, 0x5b, 0x0a, 0x1b, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x50, 0x72,
-	0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x43, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x69, 0x7a,
-	0x61, 0x64, 0x6f, 0x12, 0x1d, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64,
-	0x2e, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x43, 0x1a, 0x1b, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e,
-	0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x22,
-	0x00, 0x12, 0x40, 0x0a, 0x0a, 0x50, 0x65, 0x64, 0x69, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x61, 0x12,
-	0x18, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x4c, 0x69, 0x73,
-	0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x68, 0x65, 0x6c, 0x6c,
-	0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x61, 0x52, 0x65, 0x70, 0x6c,
-	0x79, 0x22, 0x00, 0x32, 0x53, 0x0a, 0x0a, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x44, 0x61, 0x74, 0x61,
-	0x73, 0x12, 0x45, 0x0a, 0x0f, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f,
-	0x44, 0x61, 0x74, 0x61, 0x12, 0x18, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c,
-	0x64, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x43, 0x1a, 0x16,
-	0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x44, 0x61, 0x74, 0x61,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x22, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x09, 0x52, 0x05, 0x6c, 0x69, 0x73, 0x74, 0x61, 0x22, 0x22, 0x0a, 0x0c, 0x43, 0x68, 0x75, 0x6e,
+	0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x62, 0x6f, 0x6f, 0x6b,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x62, 0x6f, 0x6f, 0x6b, 0x22, 0x28, 0x0a, 0x0a,
+	0x43, 0x68, 0x75, 0x6e, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x1a, 0x0a, 0x08, 0x6c, 0x6f,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x08, 0x6c, 0x6f,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x30, 0x0a, 0x10, 0x44, 0x61, 0x74, 0x61, 0x43, 0x68,
+	0x75, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x66, 0x69,
+	0x6c, 0x65, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x66,
+	0x69, 0x6c, 0x65, 0x63, 0x68, 0x75, 0x6e, 0x6b, 0x22, 0x28, 0x0a, 0x0e, 0x44, 0x61, 0x74, 0x61,
+	0x43, 0x68, 0x75, 0x6e, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x16, 0x0a, 0x06, 0x62, 0x69,
+	0x74, 0x61, 0x73, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x06, 0x62, 0x69, 0x74, 0x61,
+	0x73, 0x6f, 0x22, 0x31, 0x0a, 0x11, 0x44, 0x61, 0x74, 0x61, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x32, 0x12, 0x1c, 0x0a, 0x09, 0x66, 0x69, 0x6c, 0x65, 0x63,
+	0x68, 0x75, 0x6e, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x66, 0x69, 0x6c, 0x65,
+	0x63, 0x68, 0x75, 0x6e, 0x6b, 0x22, 0x29, 0x0a, 0x0f, 0x44, 0x61, 0x74, 0x61, 0x43, 0x68, 0x75,
+	0x6e, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0x12, 0x16, 0x0a, 0x06, 0x62, 0x69, 0x74, 0x61,
+	0x73, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x06, 0x62, 0x69, 0x74, 0x61, 0x73, 0x6f,
+	0x32, 0xa6, 0x01, 0x0a, 0x06, 0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x51, 0x0a, 0x0b, 0x45,
+	0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x12, 0x1e, 0x2e, 0x68, 0x65, 0x6c,
+	0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69,
+	0x62, 0x72, 0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x68, 0x65, 0x6c,
+	0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69,
+	0x62, 0x72, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x28, 0x01, 0x30, 0x01, 0x12, 0x49,
+	0x0a, 0x0b, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x12, 0x1c, 0x2e,
+	0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x43,
+	0x68, 0x75, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x68, 0x65,
+	0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x43, 0x68, 0x75,
+	0x6e, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x32, 0x63, 0x0a, 0x0b, 0x44, 0x69, 0x73,
+	0x74, 0x72, 0x69, 0x62, 0x75, 0x69, 0x64, 0x6f, 0x12, 0x54, 0x0a, 0x0c, 0x45, 0x6e, 0x76, 0x69,
+	0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x32, 0x12, 0x1f, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f,
+	0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72,
+	0x6f, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x32, 0x1a, 0x1d, 0x2e, 0x68, 0x65, 0x6c, 0x6c,
+	0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x4c, 0x69, 0x62,
+	0x72, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0x22, 0x00, 0x28, 0x01, 0x30, 0x01, 0x32, 0xf9,
+	0x01, 0x0a, 0x15, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x43, 0x65, 0x6e, 0x74,
+	0x72, 0x61, 0x6c, 0x69, 0x7a, 0x61, 0x64, 0x6f, 0x12, 0x5b, 0x0a, 0x1b, 0x45, 0x6e, 0x76, 0x69,
+	0x61, 0x72, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x43, 0x65, 0x6e, 0x74, 0x72,
+	0x61, 0x6c, 0x69, 0x7a, 0x61, 0x64, 0x6f, 0x12, 0x1d, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77,
+	0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x43, 0x1a, 0x1b, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f,
+	0x72, 0x6c, 0x64, 0x2e, 0x50, 0x72, 0x6f, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x52, 0x65, 0x70,
+	0x6c, 0x79, 0x43, 0x22, 0x00, 0x12, 0x40, 0x0a, 0x0a, 0x50, 0x65, 0x64, 0x69, 0x72, 0x4c, 0x69,
+	0x73, 0x74, 0x61, 0x12, 0x18, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64,
+	0x2e, 0x4c, 0x69, 0x73, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e,
+	0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x61,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x12, 0x41, 0x0a, 0x0b, 0x50, 0x65, 0x64, 0x69, 0x72,
+	0x43, 0x68, 0x75, 0x6e, 0x6b, 0x73, 0x12, 0x18, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f,
+	0x72, 0x6c, 0x64, 0x2e, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x16, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x43, 0x68,
+	0x75, 0x6e, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x32, 0xa1, 0x01, 0x0a, 0x0a, 0x4c,
+	0x69, 0x62, 0x72, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x73, 0x12, 0x45, 0x0a, 0x0f, 0x45, 0x6e, 0x76,
+	0x69, 0x61, 0x72, 0x4c, 0x69, 0x62, 0x72, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x12, 0x18, 0x2e, 0x68,
+	0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x43, 0x1a, 0x16, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f,
+	0x72, 0x6c, 0x64, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x22, 0x00,
+	0x12, 0x4c, 0x0a, 0x0c, 0x45, 0x6e, 0x76, 0x69, 0x61, 0x72, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x32,
+	0x12, 0x1d, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x44, 0x61,
+	0x74, 0x61, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x32, 0x1a,
+	0x1b, 0x2e, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x2e, 0x44, 0x61, 0x74,
+	0x61, 0x43, 0x68, 0x75, 0x6e, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0x22, 0x00, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -705,7 +1021,7 @@ func file_helloworld_proto_rawDescGZIP() []byte {
 	return file_helloworld_proto_rawDescData
 }
 
-var file_helloworld_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_helloworld_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_helloworld_proto_goTypes = []interface{}{
 	(*EnviarLibroRequest)(nil),  // 0: helloworld.EnviarLibroRequest
 	(*EnviarLibroReply)(nil),    // 1: helloworld.EnviarLibroReply
@@ -717,23 +1033,35 @@ var file_helloworld_proto_goTypes = []interface{}{
 	(*DataReplyC)(nil),          // 7: helloworld.DataReplyC
 	(*ListaRequest)(nil),        // 8: helloworld.ListaRequest
 	(*ListaReply)(nil),          // 9: helloworld.ListaReply
+	(*ChunkRequest)(nil),        // 10: helloworld.ChunkRequest
+	(*ChunkReply)(nil),          // 11: helloworld.ChunkReply
+	(*DataChunkRequest)(nil),    // 12: helloworld.DataChunkRequest
+	(*DataChunkReply)(nil),      // 13: helloworld.DataChunkReply
+	(*DataChunkRequest2)(nil),   // 14: helloworld.DataChunkRequest2
+	(*DataChunkReply2)(nil),     // 15: helloworld.DataChunkReply2
 }
 var file_helloworld_proto_depIdxs = []int32{
-	0, // 0: helloworld.Packet.EnviarLibro:input_type -> helloworld.EnviarLibroRequest
-	2, // 1: helloworld.Distribuido.EnviarLibro2:input_type -> helloworld.EnviarLibroRequest2
-	4, // 2: helloworld.PropuestaCentralizado.EnviarPropuestaCentralizado:input_type -> helloworld.PropuestaRequestC
-	8, // 3: helloworld.PropuestaCentralizado.PedirLista:input_type -> helloworld.ListaRequest
-	6, // 4: helloworld.LibroDatas.EnviarLibroData:input_type -> helloworld.DataRequestC
-	1, // 5: helloworld.Packet.EnviarLibro:output_type -> helloworld.EnviarLibroReply
-	3, // 6: helloworld.Distribuido.EnviarLibro2:output_type -> helloworld.EnviarLibroReply2
-	5, // 7: helloworld.PropuestaCentralizado.EnviarPropuestaCentralizado:output_type -> helloworld.PropuestaReplyC
-	9, // 8: helloworld.PropuestaCentralizado.PedirLista:output_type -> helloworld.ListaReply
-	7, // 9: helloworld.LibroDatas.EnviarLibroData:output_type -> helloworld.DataReplyC
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: helloworld.Packet.EnviarLibro:input_type -> helloworld.EnviarLibroRequest
+	12, // 1: helloworld.Packet.EnviarChunk:input_type -> helloworld.DataChunkRequest
+	2,  // 2: helloworld.Distribuido.EnviarLibro2:input_type -> helloworld.EnviarLibroRequest2
+	4,  // 3: helloworld.PropuestaCentralizado.EnviarPropuestaCentralizado:input_type -> helloworld.PropuestaRequestC
+	8,  // 4: helloworld.PropuestaCentralizado.PedirLista:input_type -> helloworld.ListaRequest
+	10, // 5: helloworld.PropuestaCentralizado.PedirChunks:input_type -> helloworld.ChunkRequest
+	6,  // 6: helloworld.LibroDatas.EnviarLibroData:input_type -> helloworld.DataRequestC
+	14, // 7: helloworld.LibroDatas.EnviarChunk2:input_type -> helloworld.DataChunkRequest2
+	1,  // 8: helloworld.Packet.EnviarLibro:output_type -> helloworld.EnviarLibroReply
+	13, // 9: helloworld.Packet.EnviarChunk:output_type -> helloworld.DataChunkReply
+	3,  // 10: helloworld.Distribuido.EnviarLibro2:output_type -> helloworld.EnviarLibroReply2
+	5,  // 11: helloworld.PropuestaCentralizado.EnviarPropuestaCentralizado:output_type -> helloworld.PropuestaReplyC
+	9,  // 12: helloworld.PropuestaCentralizado.PedirLista:output_type -> helloworld.ListaReply
+	11, // 13: helloworld.PropuestaCentralizado.PedirChunks:output_type -> helloworld.ChunkReply
+	7,  // 14: helloworld.LibroDatas.EnviarLibroData:output_type -> helloworld.DataReplyC
+	15, // 15: helloworld.LibroDatas.EnviarChunk2:output_type -> helloworld.DataChunkReply2
+	8,  // [8:16] is the sub-list for method output_type
+	0,  // [0:8] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_helloworld_proto_init() }
@@ -862,6 +1190,78 @@ func file_helloworld_proto_init() {
 				return nil
 			}
 		}
+		file_helloworld_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ChunkRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_helloworld_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ChunkReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_helloworld_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DataChunkRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_helloworld_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DataChunkReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_helloworld_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DataChunkRequest2); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_helloworld_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DataChunkReply2); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -869,7 +1269,7 @@ func file_helloworld_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_helloworld_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   4,
 		},
@@ -896,6 +1296,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type PacketClient interface {
 	EnviarLibro(ctx context.Context, opts ...grpc.CallOption) (Packet_EnviarLibroClient, error)
+	EnviarChunk(ctx context.Context, in *DataChunkRequest, opts ...grpc.CallOption) (*DataChunkReply, error)
 }
 
 type packetClient struct {
@@ -937,9 +1338,19 @@ func (x *packetEnviarLibroClient) Recv() (*EnviarLibroReply, error) {
 	return m, nil
 }
 
+func (c *packetClient) EnviarChunk(ctx context.Context, in *DataChunkRequest, opts ...grpc.CallOption) (*DataChunkReply, error) {
+	out := new(DataChunkReply)
+	err := c.cc.Invoke(ctx, "/helloworld.Packet/EnviarChunk", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PacketServer is the server API for Packet service.
 type PacketServer interface {
 	EnviarLibro(Packet_EnviarLibroServer) error
+	EnviarChunk(context.Context, *DataChunkRequest) (*DataChunkReply, error)
 }
 
 // UnimplementedPacketServer can be embedded to have forward compatible implementations.
@@ -948,6 +1359,9 @@ type UnimplementedPacketServer struct {
 
 func (*UnimplementedPacketServer) EnviarLibro(Packet_EnviarLibroServer) error {
 	return status.Errorf(codes.Unimplemented, "method EnviarLibro not implemented")
+}
+func (*UnimplementedPacketServer) EnviarChunk(context.Context, *DataChunkRequest) (*DataChunkReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnviarChunk not implemented")
 }
 
 func RegisterPacketServer(s *grpc.Server, srv PacketServer) {
@@ -980,10 +1394,33 @@ func (x *packetEnviarLibroServer) Recv() (*EnviarLibroRequest, error) {
 	return m, nil
 }
 
+func _Packet_EnviarChunk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DataChunkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PacketServer).EnviarChunk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/helloworld.Packet/EnviarChunk",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PacketServer).EnviarChunk(ctx, req.(*DataChunkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Packet_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "helloworld.Packet",
 	HandlerType: (*PacketServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "EnviarChunk",
+			Handler:    _Packet_EnviarChunk_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "EnviarLibro",
@@ -1105,6 +1542,7 @@ var _Distribuido_serviceDesc = grpc.ServiceDesc{
 type PropuestaCentralizadoClient interface {
 	EnviarPropuestaCentralizado(ctx context.Context, in *PropuestaRequestC, opts ...grpc.CallOption) (*PropuestaReplyC, error)
 	PedirLista(ctx context.Context, in *ListaRequest, opts ...grpc.CallOption) (*ListaReply, error)
+	PedirChunks(ctx context.Context, in *ChunkRequest, opts ...grpc.CallOption) (*ChunkReply, error)
 }
 
 type propuestaCentralizadoClient struct {
@@ -1133,10 +1571,20 @@ func (c *propuestaCentralizadoClient) PedirLista(ctx context.Context, in *ListaR
 	return out, nil
 }
 
+func (c *propuestaCentralizadoClient) PedirChunks(ctx context.Context, in *ChunkRequest, opts ...grpc.CallOption) (*ChunkReply, error) {
+	out := new(ChunkReply)
+	err := c.cc.Invoke(ctx, "/helloworld.PropuestaCentralizado/PedirChunks", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PropuestaCentralizadoServer is the server API for PropuestaCentralizado service.
 type PropuestaCentralizadoServer interface {
 	EnviarPropuestaCentralizado(context.Context, *PropuestaRequestC) (*PropuestaReplyC, error)
 	PedirLista(context.Context, *ListaRequest) (*ListaReply, error)
+	PedirChunks(context.Context, *ChunkRequest) (*ChunkReply, error)
 }
 
 // UnimplementedPropuestaCentralizadoServer can be embedded to have forward compatible implementations.
@@ -1148,6 +1596,9 @@ func (*UnimplementedPropuestaCentralizadoServer) EnviarPropuestaCentralizado(con
 }
 func (*UnimplementedPropuestaCentralizadoServer) PedirLista(context.Context, *ListaRequest) (*ListaReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PedirLista not implemented")
+}
+func (*UnimplementedPropuestaCentralizadoServer) PedirChunks(context.Context, *ChunkRequest) (*ChunkReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PedirChunks not implemented")
 }
 
 func RegisterPropuestaCentralizadoServer(s *grpc.Server, srv PropuestaCentralizadoServer) {
@@ -1190,6 +1641,24 @@ func _PropuestaCentralizado_PedirLista_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PropuestaCentralizado_PedirChunks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChunkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PropuestaCentralizadoServer).PedirChunks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/helloworld.PropuestaCentralizado/PedirChunks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PropuestaCentralizadoServer).PedirChunks(ctx, req.(*ChunkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _PropuestaCentralizado_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "helloworld.PropuestaCentralizado",
 	HandlerType: (*PropuestaCentralizadoServer)(nil),
@@ -1202,6 +1671,10 @@ var _PropuestaCentralizado_serviceDesc = grpc.ServiceDesc{
 			MethodName: "PedirLista",
 			Handler:    _PropuestaCentralizado_PedirLista_Handler,
 		},
+		{
+			MethodName: "PedirChunks",
+			Handler:    _PropuestaCentralizado_PedirChunks_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "helloworld.proto",
@@ -1212,6 +1685,7 @@ var _PropuestaCentralizado_serviceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LibroDatasClient interface {
 	EnviarLibroData(ctx context.Context, in *DataRequestC, opts ...grpc.CallOption) (*DataReplyC, error)
+	EnviarChunk2(ctx context.Context, in *DataChunkRequest2, opts ...grpc.CallOption) (*DataChunkReply2, error)
 }
 
 type libroDatasClient struct {
@@ -1231,9 +1705,19 @@ func (c *libroDatasClient) EnviarLibroData(ctx context.Context, in *DataRequestC
 	return out, nil
 }
 
+func (c *libroDatasClient) EnviarChunk2(ctx context.Context, in *DataChunkRequest2, opts ...grpc.CallOption) (*DataChunkReply2, error) {
+	out := new(DataChunkReply2)
+	err := c.cc.Invoke(ctx, "/helloworld.LibroDatas/EnviarChunk2", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibroDatasServer is the server API for LibroDatas service.
 type LibroDatasServer interface {
 	EnviarLibroData(context.Context, *DataRequestC) (*DataReplyC, error)
+	EnviarChunk2(context.Context, *DataChunkRequest2) (*DataChunkReply2, error)
 }
 
 // UnimplementedLibroDatasServer can be embedded to have forward compatible implementations.
@@ -1242,6 +1726,9 @@ type UnimplementedLibroDatasServer struct {
 
 func (*UnimplementedLibroDatasServer) EnviarLibroData(context.Context, *DataRequestC) (*DataReplyC, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EnviarLibroData not implemented")
+}
+func (*UnimplementedLibroDatasServer) EnviarChunk2(context.Context, *DataChunkRequest2) (*DataChunkReply2, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EnviarChunk2 not implemented")
 }
 
 func RegisterLibroDatasServer(s *grpc.Server, srv LibroDatasServer) {
@@ -1266,6 +1753,24 @@ func _LibroDatas_EnviarLibroData_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LibroDatas_EnviarChunk2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DataChunkRequest2)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibroDatasServer).EnviarChunk2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/helloworld.LibroDatas/EnviarChunk2",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibroDatasServer).EnviarChunk2(ctx, req.(*DataChunkRequest2))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _LibroDatas_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "helloworld.LibroDatas",
 	HandlerType: (*LibroDatasServer)(nil),
@@ -1273,6 +1778,10 @@ var _LibroDatas_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EnviarLibroData",
 			Handler:    _LibroDatas_EnviarLibroData_Handler,
+		},
+		{
+			MethodName: "EnviarChunk2",
+			Handler:    _LibroDatas_EnviarChunk2_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

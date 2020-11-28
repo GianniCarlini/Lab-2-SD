@@ -5,6 +5,7 @@ package helloworld;
 
 service Packet {
   rpc EnviarLibro (stream EnviarLibroRequest) returns (stream EnviarLibroReply) {} 
+  rpc EnviarChunk (DataChunkRequest) returns (DataChunkReply) {}
 }
 service Distribuido {
   rpc EnviarLibro2 (stream EnviarLibroRequest2) returns (stream EnviarLibroReply2) {} 
@@ -12,9 +13,11 @@ service Distribuido {
 service PropuestaCentralizado {
   rpc EnviarPropuestaCentralizado (PropuestaRequestC) returns (PropuestaReplyC) {}
   rpc PedirLista (ListaRequest) returns (ListaReply) {}
+  rpc PedirChunks (ChunkRequest) returns (ChunkReply) {}
 }
 service LibroDatas {
   rpc EnviarLibroData (DataRequestC) returns (DataReplyC) {}
+  rpc EnviarChunk2 (DataChunkRequest2) returns (DataChunkReply2) {}
 }
 //----------------------------------------------------------
 message EnviarLibroRequest {
@@ -68,4 +71,28 @@ message ListaRequest {
 
 message ListaReply {
    repeated string lista = 1;
+}
+//-------------------------------------------------------------
+message ChunkRequest {
+    string book = 1;
+}
+
+message ChunkReply {
+   repeated string location = 1;
+}
+//-------------------------------------------------------------
+message DataChunkRequest {
+    string filechunk = 1;
+}
+
+message DataChunkReply {
+   bytes bitaso = 1;
+}
+//-------------------------------------------------------------
+message DataChunkRequest2 {
+    string filechunk = 1;
+}
+
+message DataChunkReply2 {
+   bytes bitaso = 1;
 }
