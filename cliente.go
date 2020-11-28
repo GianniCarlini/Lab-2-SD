@@ -29,6 +29,20 @@ const (
 )
  func main() {
 	fmt.Println("Bienvenido querido cliente")
+	var numcord int
+	var ipcord string
+	fmt.Println("Elija el cordinador")
+	fmt.Println("1 para Data node 1")
+	fmt.Println("2 para Data node 2")
+	fmt.Println("3 para Data node 3")
+	fmt.Scanln(&numcord)
+	if numcord == 1{
+		ipcord = address4
+	}else if numcord == 2{
+		ipcord = address2
+	}else if numcord == 3{
+		ipcord = address3
+	}
 		var tipo int
 		fmt.Println("Ingrese 1 para modo centralizado")
 		fmt.Println("Ingrese 2 para modo distribuida")
@@ -42,7 +56,7 @@ const (
 				fmt.Scanln(&comportamiento)
 				switch comportamiento {
 					case 1:
-						conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+						conn, err := grpc.Dial(ipcord, grpc.WithInsecure())
 						if err != nil {
 							log.Fatalf("failed to connect: %s", err)
 						}
@@ -117,9 +131,9 @@ const (
 						var nameLibro string
 						fmt.Scanln(&nameLibro)
 						//-----------------------------reconstruccion de archivos------------------------
-						fmt.Println("Ingrese el DataNode Cordinador")
+						/*fmt.Println("Ingrese el DataNode Cordinador")
 						var cord int
-						fmt.Scanln(&cord)
+						fmt.Scanln(&cord)*/
 
 						conn2, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 						if err != nil {
@@ -142,7 +156,7 @@ const (
 							arch := spl[0]
 							loc := spl[1]
 							fmt.Println(data)
-							if cord == 1{
+							if numcord == 1{
 								if strings.Split(loc, ":")[1] == "50051"{
 									conn, err := grpc.Dial(loc, grpc.WithInsecure(), grpc.WithBlock())
 									if err != nil {
@@ -188,6 +202,140 @@ const (
 									fmt.Println("Split to : ", fileName)
 								}
 								if strings.Split(loc, ":")[1] == "50053"{
+									conn, err := grpc.Dial(loc, grpc.WithInsecure(), grpc.WithBlock())
+									if err != nil {
+										log.Fatalf("did not connect: %v", err)
+									}
+									defer conn.Close()
+									c := pb.NewLibroDatasClient(conn)
+									ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+									defer cancel()
+									r, err := c.EnviarChunk2(ctx, &pb.DataChunkRequest2{Filechunk: arch})
+									if err != nil {
+										log.Fatalf("could not greet: %v", err)
+									}
+									fileName := arch
+									_, err1 := os.Create(fileName)
+									if err1 != nil {
+											fmt.Println(err1)
+										 os.Exit(1)
+									}
+									ioutil.WriteFile(fileName, r.GetBitaso(), os.ModeAppend)
+									fmt.Println("Split to : ", fileName)
+								}
+							}else if numcord == 2{
+								if strings.Split(loc, ":")[1] == "50054"{
+									conn, err := grpc.Dial(loc, grpc.WithInsecure(), grpc.WithBlock())
+									if err != nil {
+										log.Fatalf("did not connect: %v", err)
+									}
+									defer conn.Close()
+									c := pb.NewPacketClient(conn)
+									ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+									defer cancel()
+									r, err := c.EnviarChunk(ctx, &pb.DataChunkRequest{Filechunk: arch})
+									if err != nil {
+										log.Fatalf("could not greet: %v", err)
+									}
+									fileName := arch
+									_, err1 := os.Create(fileName)
+									if err1 != nil {
+											fmt.Println(err1)
+										 os.Exit(1)
+									}
+									ioutil.WriteFile(fileName, r.GetBitaso(), os.ModeAppend)
+									fmt.Println("Split to : ", fileName)
+								}
+								if strings.Split(loc, ":")[1] == "50051"{
+									conn, err := grpc.Dial(loc, grpc.WithInsecure(), grpc.WithBlock())
+									if err != nil {
+										log.Fatalf("did not connect: %v", err)
+									}
+									defer conn.Close()
+									c := pb.NewLibroDatasClient(conn)
+									ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+									defer cancel()
+									r, err := c.EnviarChunk2(ctx, &pb.DataChunkRequest2{Filechunk: arch})
+									if err != nil {
+										log.Fatalf("could not greet: %v", err)
+									}
+									fileName := arch
+									_, err1 := os.Create(fileName)
+									if err1 != nil {
+											fmt.Println(err1)
+										 os.Exit(1)
+									}
+									ioutil.WriteFile(fileName, r.GetBitaso(), os.ModeAppend)
+									fmt.Println("Split to : ", fileName)
+								}
+								if strings.Split(loc, ":")[1] == "50053"{
+									conn, err := grpc.Dial(loc, grpc.WithInsecure(), grpc.WithBlock())
+									if err != nil {
+										log.Fatalf("did not connect: %v", err)
+									}
+									defer conn.Close()
+									c := pb.NewLibroDatasClient(conn)
+									ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+									defer cancel()
+									r, err := c.EnviarChunk2(ctx, &pb.DataChunkRequest2{Filechunk: arch})
+									if err != nil {
+										log.Fatalf("could not greet: %v", err)
+									}
+									fileName := arch
+									_, err1 := os.Create(fileName)
+									if err1 != nil {
+											fmt.Println(err1)
+										 os.Exit(1)
+									}
+									ioutil.WriteFile(fileName, r.GetBitaso(), os.ModeAppend)
+									fmt.Println("Split to : ", fileName)
+								}
+							}else if numcord == 3{
+								if strings.Split(loc, ":")[1] == "50053"{
+									conn, err := grpc.Dial(loc, grpc.WithInsecure(), grpc.WithBlock())
+									if err != nil {
+										log.Fatalf("did not connect: %v", err)
+									}
+									defer conn.Close()
+									c := pb.NewPacketClient(conn)
+									ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+									defer cancel()
+									r, err := c.EnviarChunk(ctx, &pb.DataChunkRequest{Filechunk: arch})
+									if err != nil {
+										log.Fatalf("could not greet: %v", err)
+									}
+									fileName := arch
+									_, err1 := os.Create(fileName)
+									if err1 != nil {
+											fmt.Println(err1)
+										 os.Exit(1)
+									}
+									ioutil.WriteFile(fileName, r.GetBitaso(), os.ModeAppend)
+									fmt.Println("Split to : ", fileName)
+								}
+								if strings.Split(loc, ":")[1] == "50051"{
+									conn, err := grpc.Dial(loc, grpc.WithInsecure(), grpc.WithBlock())
+									if err != nil {
+										log.Fatalf("did not connect: %v", err)
+									}
+									defer conn.Close()
+									c := pb.NewLibroDatasClient(conn)
+									ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+									defer cancel()
+									r, err := c.EnviarChunk2(ctx, &pb.DataChunkRequest2{Filechunk: arch})
+									if err != nil {
+										log.Fatalf("could not greet: %v", err)
+									}
+									fileName := arch
+									_, err1 := os.Create(fileName)
+									if err1 != nil {
+											fmt.Println(err1)
+										 os.Exit(1)
+									}
+									ioutil.WriteFile(fileName, r.GetBitaso(), os.ModeAppend)
+									fmt.Println("Split to : ", fileName)
+								}
+								if strings.Split(loc, ":")[1] == "50054"{
 									conn, err := grpc.Dial(loc, grpc.WithInsecure(), grpc.WithBlock())
 									if err != nil {
 										log.Fatalf("did not connect: %v", err)
