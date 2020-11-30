@@ -48,7 +48,7 @@ const (
 		fmt.Println("Ingrese 2 para modo distribuida")
 		fmt.Scanln(&tipo)
 		switch tipo{
-			case 1:
+		case 1:
 			for{
 				var comportamiento int
 				fmt.Println("Ingrese 1 si desea subir un archivo")
@@ -477,7 +477,7 @@ const (
 						file.Close()
 				}
 			}
-			case 2:
+		case 2:
 			for{
 				var comportamiento int
 				fmt.Println("Ingrese 1 si desea subir un archivo")
@@ -528,7 +528,7 @@ const (
 								//------------------envio de chunks------------------------------------
 								// write to disk
 								fileName := nameLibro+"_" + strconv.FormatUint(i, 10)
-								msg := &pb.EnviarLibroRequest2{Id: partBuffer, Name: fileName}
+								msg := &pb.EnviarLibroRequest2{Id: partBuffer, Name: fileName, Numero: totalPartsNum, Libro: nameLibro}
 								stream.Send(msg)
 								resp, err := stream.Recv()
 								if err != nil {

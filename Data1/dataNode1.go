@@ -143,7 +143,9 @@ func (s *server) EnviarLibro(stream pb.Packet_EnviarLibroServer) error {
 }
 func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 	log.Println("Started stream Distribuido")
-	var contador = 0
+	var contador = 1
+	var b [][]byte
+	var xd []string
 	for {
 		in, err := stream.Recv()
 		if err == io.EOF {
@@ -159,17 +161,119 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 		if err := stream.Send(&resp); err != nil { 
 			log.Printf("send error %v", err)
 		}
-		file, err := os.Create(fileName)
-		defer file.Close()
-		if err != nil {
-				fmt.Println(err)
-				os.Exit(1)
-		}
-		// write/save buffer to disk
-		ioutil.WriteFile(fileName, partBuffer, os.ModeAppend)
-
-		fmt.Println("Split to : ", fileName)
+		b = append(b,partBuffer) //arreglo con los bytes de los archivos
+		xd = append(xd,fileName) //arreglo con los nombres de los archivos
 		contador++
+		fmt.Println("Split to : ", fileName)
+		if uint64(contador) == in.Numero+1{
+			var p1i [][]byte
+			var p2i [][]byte
+			var p3i [][]byte
+			p1i = append(p1i,b[0])
+			p2i = append(p2i,b[1])
+			p3i = b[2:]
+			//--------------------DATA2-----------------------------------------------
+			conn, err := grpc.Dial(address2, grpc.WithInsecure(), grpc.WithBlock())
+			if err != nil {
+				log.Fatalf("did not connect: %v", err)
+			}
+			defer conn.Close()
+			c := pb.NewDistribuidoClient(conn)
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
+			r, err := c.EnviarPropuestaDistribuido(ctx, &pb.DistribuidoRequest{Propuestaini: xd, Propuestaini1: p1i, Propuestaini2: p2i, Propuestaini3: p3i, Flag: int64(1), Aceptada: false})
+			if err != nil {
+				log.Fatalf("could not greet: %v", err)
+			}
+			respinidata2 := r.GetRespuesta()
+			//--------------------DATA3-----------------------------------------------
+			conn2, err2 := grpc.Dial(address3, grpc.WithInsecure(), grpc.WithBlock())
+			if err2 != nil {
+				log.Fatalf("did not connect: %v", err2)
+			}
+			defer conn.Close()
+			c2 := pb.NewDistribuidoClient(conn2)
+			ctx2, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
+			r2, err3 := c2.EnviarPropuestaDistribuido(ctx2, &pb.DistribuidoRequest{Propuestaini: xd, Propuestaini1: p1i, Propuestaini2: p2i, Propuestaini3: p3i, Flag: int64(1), Aceptada: false})
+			if err3 != nil {
+				log.Fatalf("could not greet: %v", err3)
+			}
+			respinidata3 := r2.GetRespuesta()
+			//-----------------------------------------------------------------------
+			if (respinidata2 == "ACEPTADA" && respinidata3 == "ACEPTADA"){
+					fmt.Println("Me aceptaron los 2")
+					fmt.Println("Propuesta inicial aceptada")
+					//----------------Data2Acept-----------------------------------------------
+					conn, err := grpc.Dial(address2, grpc.WithInsecure(), grpc.WithBlock())
+					if err != nil {
+						log.Fatalf("did not connect: %v", err)
+					}
+					defer conn.Close()
+					c := pb.NewDistribuidoClient(conn)
+					ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+					defer cancel()
+					r, err := c.EnviarPropuestaDistribuido(ctx, &pb.DistribuidoRequest{Propuestaini: xd, Propuestaini1: p1i, Propuestaini2: p2i, Propuestaini3: p3i, Flag: int64(1), Aceptada: true})
+					if err != nil {
+						log.Fatalf("could not greet: %v", err)
+					}
+					fmt.Println(r.GetRespuesta())
+					//----------------Data3Acept-----------------------------------------------
+					conn2, err2 := grpc.Dial(address3, grpc.WithInsecure(), grpc.WithBlock())
+					if err2 != nil {
+						log.Fatalf("did not connect: %v", err2)
+					}
+					defer conn.Close()
+					c2 := pb.NewDistribuidoClient(conn2)
+					ctx2, cancel := context.WithTimeout(context.Background(), time.Second)
+					defer cancel()
+					r2, err3 := c2.EnviarPropuestaDistribuido(ctx2, &pb.DistribuidoRequest{Propuestaini: xd, Propuestaini1: p1i, Propuestaini2: p2i, Propuestaini3: p3i, Flag: int64(1), Aceptada: true})
+					if err3 != nil {
+						log.Fatalf("could not greet: %v", err3)
+					}
+					fmt.Println(r2.GetRespuesta())
+			}else{
+				fmt.Println("Propuesta inicial rechazada")
+				fmt.Println("Generando nueva propuesta")
+
+				p1 := b[:in.Numero/3]
+				p2 := b[in.Numero/3:2*in.Numero/3]
+				p3 := b[2*in.Numero/3:]
+				
+				//-----------------------DATA2 NEW---------------------------------------
+				conn, err := grpc.Dial(address2, grpc.WithInsecure(), grpc.WithBlock())
+				if err != nil {
+					log.Fatalf("did not connect: %v", err)
+				}
+				defer conn.Close()
+				c := pb.NewDistribuidoClient(conn)
+				ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+				defer cancel()
+				r, err := c.EnviarPropuestaDistribuido(ctx, &pb.DistribuidoRequest{Propuestaini: xd, Propuestaini1: p1, Propuestaini2: p2, Propuestaini3: p3, Flag: int64(2), Aceptada: true})
+				if err != nil {
+					log.Fatalf("could not greet: %v", err)
+				}
+				fmt.Println(r.GetRespuesta())
+				//-----------------------DATA3 NEW---------------------------------------
+				conn2, err2 := grpc.Dial(address3, grpc.WithInsecure(), grpc.WithBlock())
+				if err2 != nil {
+					log.Fatalf("did not connect: %v", err2)
+				}
+				defer conn.Close()
+				c2 := pb.NewDistribuidoClient(conn2)
+				ctx2, cancel := context.WithTimeout(context.Background(), time.Second)
+				defer cancel()
+				r2, err3 := c2.EnviarPropuestaDistribuido(ctx2, &pb.DistribuidoRequest{Propuestaini: xd, Propuestaini1: p1, Propuestaini2: p2, Propuestaini3: p3, Flag: int64(2), Aceptada: true})
+				if err3 != nil {
+					log.Fatalf("could not greet: %v", err3)
+				}
+				fmt.Println(r2.GetRespuesta())
+				//----------------------escribo--------------------------------------------
+				
+			}
+	
+		}
+
 	}
 }
 //-------------------------------------------------------
@@ -204,6 +308,11 @@ func (s *server) EnviarChunk2(ctx context.Context, in *pb.DataChunkRequest2) (*p
            fmt.Print(err)
        }
 	return &pb.DataChunkReply2{Bitaso: b}, nil
+}
+//--------------------------------------------------------------
+func (s *server) EnviarPropuestaDistribuido(ctx context.Context, in *pb.DistribuidoRequest) (*pb.DistribuidoReply, error) {
+	log.Printf("Received: %v", in.GetPropuestaini())
+	return &pb.DistribuidoReply{Respuesta: "Me llego xd"}, nil
 }
 func main() {
 	var comportamiento int

@@ -9,6 +9,7 @@ service Packet {
 }
 service Distribuido {
   rpc EnviarLibro2 (stream EnviarLibroRequest2) returns (stream EnviarLibroReply2) {} 
+  rpc EnviarPropuestaDistribuido (DistribuidoRequest) returns (DistribuidoReply) {}
 }
 service PropuestaCentralizado {
   rpc EnviarPropuestaCentralizado (PropuestaRequestC) returns (PropuestaReplyC) {}
@@ -34,6 +35,8 @@ message EnviarLibroReply {
 message EnviarLibroRequest2 {
     bytes id = 1;
     string name = 2;
+    uint64 numero = 3;
+    string libro = 4;
 }
 
 message EnviarLibroReply2 {
@@ -95,4 +98,17 @@ message DataChunkRequest2 {
 
 message DataChunkReply2 {
    bytes bitaso = 1;
+}
+//-------------------------------------------------------------
+message DistribuidoRequest {
+    repeated string propuestaini = 1;
+    repeated bytes propuestaini1 = 2;
+    repeated bytes propuestaini2 = 3;
+    repeated bytes propuestaini3 = 4;
+    int64 flag = 5;
+    bool aceptada = 6;
+}
+
+message DistribuidoReply {
+   string respuesta = 1;
 }
