@@ -10,6 +10,7 @@ import (
 	//"strconv"
 	"context"
 	"time"
+	"math/rand"
 
 
 	pb "github.com/GianniCarlini/Lab-2-SD/proto"
@@ -334,7 +335,49 @@ func (s *server) EnviarChunk2(ctx context.Context, in *pb.DataChunkRequest2) (*p
 //--------------------------------------------------------------
 func (s *server) EnviarPropuestaDistribuido(ctx context.Context, in *pb.DistribuidoRequest) (*pb.DistribuidoReply, error) {
 	log.Printf("Received: %v", in.GetPropuestaini())
-	return &pb.DistribuidoReply{Respuesta: "Me llego xd"}, nil
+	var resp string
+
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	aceptar := r1.Intn(101)
+
+	if in.GetFlag() == int64(1){
+		if in.GetAceptada() == true{
+			fmt.Println("Propuesta incial aceptada uwu")
+			resp = "OK1"
+
+			file, err := os.Create(in.GetPropuestaini()[0])
+				defer file.Close()
+				if err != nil {
+						fmt.Println(err)
+						os.Exit(1)
+				}
+				// write/save buffer to disk
+				ioutil.WriteFile(in.GetPropuestaini()[0], in.GetPropuestaini1()[0], os.ModeAppend)
+		}else if in.GetAceptada() == false{
+			fmt.Println("Me llego una propuesta inicial")
+			if aceptar <= 50{
+				resp = "ACEPTADA"
+			}else{
+				resp = "RECHAZADA"
+			}
+		}
+	}else if in.GetFlag() == int64(2){
+		fmt.Println("Esta es una segunda propuesta")
+		resp = "ACEPTADA"
+		names := in.GetPropuestaini()[:len(in.GetPropuestaini())/3]
+		for i := range names{
+			file, err := os.Create(names[i])
+			defer file.Close()
+			if err != nil {
+					fmt.Println(err)
+					os.Exit(1)
+			}
+			// write/save buffer to disk
+			ioutil.WriteFile(names[i], in.GetPropuestaini1()[i], os.ModeAppend)
+		}
+	}
+	return &pb.DistribuidoReply{Respuesta: resp}, nil
 }
 func main() {
 	var comportamiento int
