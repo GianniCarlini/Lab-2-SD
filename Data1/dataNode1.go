@@ -232,6 +232,15 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 						log.Fatalf("could not greet: %v", err3)
 					}
 					fmt.Println(r2.GetRespuesta())
+					//------------------escribo-----------------------------------
+					file, err := os.Create(xd[0])
+					defer file.Close()
+					if err != nil {
+							fmt.Println(err)
+							os.Exit(1)
+					}
+					// write/save buffer to disk
+					ioutil.WriteFile(xd[0], b[0], os.ModeAppend)
 			}else{
 				fmt.Println("Propuesta inicial rechazada")
 				fmt.Println("Generando nueva propuesta")
@@ -269,6 +278,19 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 				}
 				fmt.Println(r2.GetRespuesta())
 				//----------------------escribo--------------------------------------------
+				names := xd[:len(xd)/3]
+				bita := b[:len(xd)/3]
+				for i := range names{
+					file, err := os.Create(names[i])
+					defer file.Close()
+					if err != nil {
+							fmt.Println(err)
+							os.Exit(1)
+					}
+					// write/save buffer to disk
+					ioutil.WriteFile(names[i], bita[i], os.ModeAppend)
+				}
+
 				
 			}
 	
