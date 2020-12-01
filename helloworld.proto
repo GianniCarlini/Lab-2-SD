@@ -10,6 +10,10 @@ service Packet {
 service Distribuido {
   rpc EnviarLibro2 (stream EnviarLibroRequest2) returns (stream EnviarLibroReply2) {} 
   rpc EnviarPropuestaDistribuido (DistribuidoRequest) returns (DistribuidoReply) {}
+  rpc Escribir (EscribirRequest) returns (EscribirReply) {}
+  rpc PedirLista2 (ListaRequest2) returns (ListaReply2) {}
+  rpc PedirChunks2 (ChunkRequest2) returns (ChunkReply2) {}
+  rpc EnviarChunk3 (DataChunkRequestDist) returns (DataChunkReplyDist) {}
 }
 service PropuestaCentralizado {
   rpc EnviarPropuestaCentralizado (PropuestaRequestC) returns (PropuestaReplyC) {}
@@ -30,7 +34,7 @@ message EnviarLibroRequest {
 
 message EnviarLibroReply {
     string id = 1;
-}
+} 
 //-----------------------------------------------------------
 message EnviarLibroRequest2 {
     bytes id = 1;
@@ -111,4 +115,40 @@ message DistribuidoRequest {
 
 message DistribuidoReply {
    string respuesta = 1;
+}
+//-----------------------------------------------------------
+message EscribirRequest {
+    repeated string propuesta = 1;
+    repeated string propuesta1 = 2;
+    repeated string propuesta2 = 3;
+    repeated string propuesta3 = 4;
+    string nombre = 5;
+}
+
+message EscribirReply {
+    string estate = 1;
+}
+//-------------------------------------------------------------
+message ListaRequest2 {
+    string peticion2 = 1;
+}
+
+message ListaReply2 {
+   repeated string lista2 = 1;
+}
+//-------------------------------------------------------------
+message ChunkRequest2 {
+    string book2 = 1;
+}
+
+message ChunkReply2 {
+   repeated string location2 = 1;
+}
+//-------------------------------------------------------------
+message DataChunkRequestDist {
+    string filechunk2 = 1;
+}
+
+message DataChunkReplyDist {
+   bytes bitaso2 = 1;
 }

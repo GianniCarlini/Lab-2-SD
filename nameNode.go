@@ -191,6 +191,10 @@ func (s *server) PedirLista(ctx context.Context, in *pb.ListaRequest) (*pb.Lista
 	fmt.Println("Enviando listado de libros")
 	return &pb.ListaReply{Lista: lista}, nil
 }
+func (s *server) PedirLista2(ctx context.Context, in *pb.ListaRequest2) (*pb.ListaReply2, error) {
+	fmt.Println("Enviando listado de libros")
+	return &pb.ListaReply2{Lista2: lista}, nil
+}
 func (s *server) PedirChunks(ctx context.Context, in *pb.ChunkRequest) (*pb.ChunkReply, error) {
 	fmt.Println("Enviando locacion chunks")
 	var retorno []string
@@ -201,14 +205,140 @@ func (s *server) PedirChunks(ctx context.Context, in *pb.ChunkRequest) (*pb.Chun
 	}
 	return &pb.ChunkReply{Location: retorno}, nil
 }
-func main() {
-	lis, err := net.Listen("tcp", port)
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+
+func (s *server) PedirChunks2(ctx context.Context, in *pb.ChunkRequest2) (*pb.ChunkReply2, error) {
+	fmt.Println("Enviando locacion chunks")
+	var retorno []string
+	for _,numero := range datachunks {
+		if numero[0] == in.GetBook2() {
+			retorno = numero
+		}
 	}
-	s := grpc.NewServer()
-	pb.RegisterPropuestaCentralizadoServer(s, &server{})
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+	return &pb.ChunkReply2{Location2: retorno}, nil
+}
+//------------------AAAAAAAA----------------------------
+func (s *server) EnviarChunk3(ctx context.Context, in *pb.DataChunkRequestDist) (*pb.DataChunkReplyDist, error) {
+	log.Printf("Received: %v", in.GetFilechunk2())
+	b, err := ioutil.ReadFile(in.GetFilechunk2()) // just pass the file name
+       if err != nil {
+           fmt.Print(err)
+       }
+	return &pb.DataChunkReplyDist{Bitaso2: b}, nil
+}
+func (s *server) Escribir(ctx context.Context, in *pb.EscribirRequest) (*pb.EscribirReply, error) {
+	fmt.Println("Ingresando al log")
+	var datachunk []string
+	nombre := in.GetNombre()
+	datachunk = append(datachunk, nombre)
+	largo := len(in.GetPropuesta())
+	if !(existeEnArreglo(lista, nombre)){
+		lista = append(lista,nombre)
+	}
+	//----------nombre largo---------------------
+	content, err := ioutil.ReadFile("log.txt") // just pass the file name
+	if err != nil {
+		fmt.Print(err)
+	}
+	content = append(content, []byte(in.GetNombre()+" "+strconv.Itoa(largo)+"\n")...)
+    err = ioutil.WriteFile("log.txt", content, 0644)
+    if err != nil {
+        log.Fatal(err)
+	}
+	//------------distribucion-------------------------
+	d1 := in.GetPropuesta1()
+	d2 := in.GetPropuesta2()
+	d3 := in.GetPropuesta3()
+
+	for i := range d1{
+		content, err := ioutil.ReadFile("log.txt") // just pass the file name
+		if err != nil {
+			fmt.Print(err)
+		}
+		
+		content = append(content, []byte(d1[i]+" "+ip1+"\n")...)
+		datachunk = append(datachunk, d1[i]+","+ip1)
+		err = ioutil.WriteFile("log.txt", content, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	for i := range d2{
+		content, err := ioutil.ReadFile("log.txt") // just pass the file name
+		if err != nil {
+			fmt.Print(err)
+		}
+		
+		content = append(content, []byte(d2[i]+" "+ip2+"\n")...)
+		datachunk = append(datachunk, d2[i]+","+ip2)
+		
+		err = ioutil.WriteFile("log.txt", content, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	for i := range d3{
+		content, err := ioutil.ReadFile("log.txt") // just pass the file name
+		if err != nil {
+			fmt.Print(err)
+		}
+		
+		content = append(content, []byte(d3[i]+" "+ip3+"\n")...)
+		datachunk = append(datachunk, d3[i]+","+ip3)
+
+		err = ioutil.WriteFile("log.txt", content, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	datachunks = append(datachunks, datachunk)
+	fmt.Println(datachunks)
+	return &pb.EscribirReply{Estate: "Escrito"}, nil
+}
+//-----------------------AAAAAAAAAAAAAAAAAA--------------------
+func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
+	log.Println("Started stream Distribuido")
+	for {
+		in, err := stream.Recv()
+		if err != nil {
+			return err
+		}
+		resp := pb.EnviarLibroReply2{Id: in.Name}
+		if err := stream.Send(&resp); err != nil { 
+			log.Printf("send error %v", err)
+		}
+
+	}
+}
+func (s *server) EnviarPropuestaDistribuido(ctx context.Context, in *pb.DistribuidoRequest) (*pb.DistribuidoReply, error) {
+	log.Printf("Received: %v", in.GetPropuestaini())
+	return &pb.DistribuidoReply{Respuesta: "ok"}, nil
+}
+//-----------------------AAAAAAAAAAAAAAAAAA--------------------
+func main() {
+	var tipo int 
+	fmt.Println("Ingrese 1 para modo centralizado")
+	fmt.Println("Ingrese 2 para modo distribuida")
+	fmt.Scanln(&tipo)
+	switch tipo{
+		case 1:
+			lis, err := net.Listen("tcp", port)
+			if err != nil {
+				log.Fatalf("failed to listen: %v", err)
+			}
+			s := grpc.NewServer()
+			pb.RegisterPropuestaCentralizadoServer(s, &server{})
+			if err := s.Serve(lis); err != nil {
+				log.Fatalf("failed to serve: %v", err)
+			}
+		case 2:
+			lis, err := net.Listen("tcp", port)
+			if err != nil {
+				log.Fatalf("failed to listen: %v", err)
+			}
+			s := grpc.NewServer()
+			pb.RegisterDistribuidoServer(s, &server{})
+			if err := s.Serve(lis); err != nil {
+				log.Fatalf("failed to serve: %v", err)
+			}	
 	}
 }

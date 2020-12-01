@@ -242,6 +242,26 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 					}
 					// write/save buffer to disk
 					ioutil.WriteFile(xd[0], b[0], os.ModeAppend)
+					//---------------------log--------------------------------------
+					var log1 []string
+					var log2 []string
+					log1 = append(log1,xd[0])
+					log2 = append(log2,xd[1])
+					conn6, err6 := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+					if err6 != nil {
+						log.Fatalf("did not connect: %v", err6)
+					}
+					defer conn.Close()
+					c6 := pb.NewDistribuidoClient(conn6)
+					ctx6, cancel := context.WithTimeout(context.Background(), time.Second)
+					defer cancel()
+		
+					r6, err7 := c6.Escribir(ctx6, &pb.EscribirRequest{Propuesta: xd, Propuesta1: log1, Propuesta2: log2, Propuesta3: xd[2:], Nombre: in.GetLibro()})
+					if err7 != nil {
+						log.Fatalf("could not greet: %v", err7)
+					}
+	
+					fmt.Println(r6.GetEstate())
 			}else{
 				fmt.Println("Propuesta inicial rechazada")
 				fmt.Println("Generando nueva propuesta")
@@ -291,8 +311,21 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 					// write/save buffer to disk
 					ioutil.WriteFile(names[i], bita[i], os.ModeAppend)
 				}
+				conn5, err5 := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+				if err5 != nil {
+					log.Fatalf("did not connect: %v", err5)
+				}
+				defer conn.Close()
+				c5 := pb.NewDistribuidoClient(conn5)
+				ctx5, cancel := context.WithTimeout(context.Background(), time.Second)
+				defer cancel()
+	
+				r5, err6 := c5.Escribir(ctx5, &pb.EscribirRequest{Propuesta: xd, Propuesta1: xd[:len(xd)/3], Propuesta2: xd[len(xd)/3:2*len(xd)/3], Propuesta3: xd[2*len(xd)/3:], Nombre: in.GetLibro()})
+				if err6 != nil {
+					log.Fatalf("could not greet: %v", err6)
+				}
 
-				
+				fmt.Println(r5.GetEstate())
 			}
 	
 		}
@@ -378,6 +411,28 @@ func (s *server) EnviarPropuestaDistribuido(ctx context.Context, in *pb.Distribu
 		}
 	}
 	return &pb.DistribuidoReply{Respuesta: resp}, nil
+}
+func (s *server) EnviarChunk3(ctx context.Context, in *pb.DataChunkRequestDist) (*pb.DataChunkReplyDist, error) {
+	log.Printf("Received: %v", in.GetFilechunk2())
+	b, err := ioutil.ReadFile(in.GetFilechunk2()) // just pass the file name
+       if err != nil {
+           fmt.Print(err)
+       }
+	return &pb.DataChunkReplyDist{Bitaso2: b}, nil
+}
+//-----------------------AAAAAAAAAAAAAAAAAA--------------------
+func (s *server) Escribir(ctx context.Context, in *pb.EscribirRequest) (*pb.EscribirReply, error) {
+	return &pb.EscribirReply{Estate: "Escrito"}, nil
+}
+func (s *server) PedirLista2(ctx context.Context, in *pb.ListaRequest2) (*pb.ListaReply2, error) {
+	fmt.Println("Enviando listado de libros")
+	lista := []string{"A", "B", "C"}
+	return &pb.ListaReply2{Lista2: lista}, nil
+}
+func (s *server) PedirChunks2(ctx context.Context, in *pb.ChunkRequest2) (*pb.ChunkReply2, error) {
+	fmt.Println("Enviando locacion chunks")
+	retorno := []string{"A", "B", "C"}
+	return &pb.ChunkReply2{Location2: retorno}, nil
 }
 func main() {
 	var comportamiento int
