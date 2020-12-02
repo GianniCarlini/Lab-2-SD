@@ -156,9 +156,7 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 	var b [][]byte
 	var xd []string
 
-	state = true
-	for !RyA(){} 
-	
+
 	for {
 		in, err := stream.Recv()
 		if err == io.EOF {
@@ -255,6 +253,10 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 					// write/save buffer to disk
 					ioutil.WriteFile(xd[1], b[1], os.ModeAppend)
 					//---------------------log--------------------------------------
+
+					state = true
+					for !RyA(){} 
+
 					var log1 []string
 					var log2 []string
 					log1 = append(log1,xd[0])
@@ -274,6 +276,7 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 					}
 	
 					fmt.Println(r6.GetEstate())
+					state = false
 			}else{
 				fmt.Println("Propuesta inicial rechazada")
 				fmt.Println("Generando nueva propuesta")
@@ -323,6 +326,10 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 					// write/save buffer to disk
 					ioutil.WriteFile(names[i], bita[i], os.ModeAppend)
 				}
+				//--------------log-------------------
+				state = true
+				for !RyA(){} 
+
 				conn5, err5 := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 				if err5 != nil {
 					log.Fatalf("did not connect: %v", err5)
@@ -339,7 +346,7 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 
 				fmt.Println(r5.GetEstate())
 
-				
+				state = false
 			}
 	
 		}
