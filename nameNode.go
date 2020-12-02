@@ -23,6 +23,8 @@ const (
 
 var lista []string
 var datachunks [][]string
+var state = false
+var idnode = 1000
 
 type server struct {
 }
@@ -295,6 +297,31 @@ func (s *server) Escribir(ctx context.Context, in *pb.EscribirRequest) (*pb.Escr
 	return &pb.EscribirReply{Estate: "Escrito"}, nil
 }
 //-----------------------AAAAAAAAAAAAAAAAAA--------------------
+func RyA()bool{
+	//-------------DATA2--------------------------------
+	respuestad2 := "A"
+	respuestad2id := int64(1)
+	//------------------DATA3---------------------------------------------
+	respuestad3 := "A"
+	respuestad3id := int64(1)
+	//--------------------
+	if (respuestad2 == "Held" || respuestad3 == "Held"){
+		if (respuestad2id > int64(idnode) || respuestad3id > int64(idnode)){
+			return false
+		}
+		return true
+	}else{
+		return true
+	}
+
+}
+func (s *server) RA(ctx context.Context, msg *pb.RARequest) (*pb.RAReply, error) {
+	if state == false {
+		return &pb.RAReply{Reply: "Released" , Id: int64(idnode)}, nil
+	} else{
+		return &pb.RAReply{Reply: "Held" , Id: int64(idnode)}, nil
+	}
+}
 func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 	log.Println("Started stream Distribuido")
 	for {
@@ -313,6 +340,7 @@ func (s *server) EnviarPropuestaDistribuido(ctx context.Context, in *pb.Distribu
 	log.Printf("Received: %v", in.GetPropuestaini())
 	return &pb.DistribuidoReply{Respuesta: "ok"}, nil
 }
+
 //-----------------------AAAAAAAAAAAAAAAAAA--------------------
 func main() {
 	var tipo int 

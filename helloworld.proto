@@ -14,6 +14,7 @@ service Distribuido {
   rpc PedirLista2 (ListaRequest2) returns (ListaReply2) {}
   rpc PedirChunks2 (ChunkRequest2) returns (ChunkReply2) {}
   rpc EnviarChunk3 (DataChunkRequestDist) returns (DataChunkReplyDist) {}
+  rpc RA (RARequest) returns (RAReply) {}
 }
 service PropuestaCentralizado {
   rpc EnviarPropuestaCentralizado (PropuestaRequestC) returns (PropuestaReplyC) {}
@@ -151,4 +152,14 @@ message DataChunkRequestDist {
 
 message DataChunkReplyDist {
    bytes bitaso2 = 1;
+}
+//-------------------------------------------------------------
+message RARequest {
+    int64 id = 1;
+
+}
+
+message RAReply {
+    int64 id = 1;
+    string reply = 2;
 }

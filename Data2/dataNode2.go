@@ -30,6 +30,9 @@ const (
 type server struct {
 }
 
+var state = false
+var idnode = 10
+
 func CrearDistribucion (prop []string) (p1 []string, p2 []string, p3 []string){
 	p1 = append(p1,prop[0])
 	p2 = append(p2,prop[1])
@@ -152,6 +155,10 @@ func (s *server) EnviarLibro2(stream pb.Distribuido_EnviarLibro2Server) error {
 	var contador = 1
 	var b [][]byte
 	var xd []string
+
+	state = true
+	for !RyA(){} 
+	
 	for {
 		in, err := stream.Recv()
 		if err == io.EOF {
@@ -409,6 +416,55 @@ func (s *server) EnviarChunk3(ctx context.Context, in *pb.DataChunkRequestDist) 
            fmt.Print(err)
        }
 	return &pb.DataChunkReplyDist{Bitaso2: b}, nil
+}
+func RyA()bool{
+	//-------------DATA1--------------------------------
+	conn, err := grpc.Dial(address2, grpc.WithInsecure(), grpc.WithBlock())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+	c := pb.NewDistribuidoClient(conn)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := c.RA(ctx, &pb.RARequest{Id: int64(idnode)})
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	respuestad2 := r.GetReply()
+	respuestad2id := r.GetId()
+	//------------------DATA3---------------------------------------------
+	conn2, err2 := grpc.Dial(address3, grpc.WithInsecure(), grpc.WithBlock())
+	if err2 != nil {
+		log.Fatalf("did not connect: %v", err2)
+	}
+	defer conn2.Close()
+	c2 := pb.NewDistribuidoClient(conn2)
+	ctx2, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r2, err3 := c2.RA(ctx2, &pb.RARequest{Id: int64(idnode)})
+	if err3 != nil {
+		log.Fatalf("could not greet: %v", err3)
+	}
+	respuestad3 := r2.GetReply()
+	respuestad3id := r2.GetId()
+	//--------------------
+	if (respuestad2 == "Held" || respuestad3 == "Held"){
+		if (respuestad2id > int64(idnode) || respuestad3id > int64(idnode)){
+			return false
+		}
+		return true
+	}else{
+		return true
+	}
+
+}
+func (s *server) RA(ctx context.Context, msg *pb.RARequest) (*pb.RAReply, error) {
+	if state == false {
+		return &pb.RAReply{Reply: "Released" , Id: int64(idnode)}, nil
+	} else{
+		return &pb.RAReply{Reply: "Held" , Id: int64(idnode)}, nil
+	}
 }
 //-----------------------AAAAAAAAAAAAAAAAAA--------------------
 func (s *server) Escribir(ctx context.Context, in *pb.EscribirRequest) (*pb.EscribirReply, error) {
