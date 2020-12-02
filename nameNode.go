@@ -15,9 +15,9 @@ import (
 )
 
 const (
-	ip2 = "localhost:50054" //data2
-	ip3 = "localhost:50053" //data 3
-	ip1 = "localhost:50051" //data1
+	ip2 = "10.10.28.68:50054" //data2
+	ip3 = "10.10.28.69:50053" //data 3
+	ip1 = "10.10.28.67:50051" //data1
 	port = ":50052"
 )
 

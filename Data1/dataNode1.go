@@ -22,12 +22,13 @@ const (
 	//ip3 = "IPDATA1"
 	port2 = ":50055"
 	port = ":50051" //puerto de data1server
-	address = "localhost:50052" //namenode
-	address2 = "localhost:50054" //data2
-	address3 = "localhost:50053" //data 3 no cordinador
+	address = "10.10.28.7:50052" //namenode
+	address2 = "10.10.28.68:50054" //data2
+	address3 = "10.10.28.69:50053" //data 3 no cordinador
 
 
 )
+
 
 type server struct {
 }

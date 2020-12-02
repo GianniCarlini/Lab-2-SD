@@ -20,10 +20,10 @@ const (
 	//ip1 = "IPDATA1"
 	//ip2 = "IPDATA1"
 	//ip3 = "IPDATA1"
-	address = "localhost:50052" //namenode
-	address2 = "localhost:50054" //data2
-	address3 = "localhost:50053" //data 3
-	address4 = "localhost:50051" //data1
+	address = "10.10.28.7:50052" //namenode
+	address2 = "10.10.28.68:50054" //data2
+	address3 = "10.10.28.69:50053" //data 3
+	address4 = "10.10.28.67:50051" //data1
 
 
 )

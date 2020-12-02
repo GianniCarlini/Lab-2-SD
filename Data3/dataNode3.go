@@ -18,9 +18,9 @@ import (
 const (
 
 	port = ":50053" //puerto de data1server
-	address = "localhost:50052" //namenode
-	address2 = "localhost:50051" //data1 no cordinador
-	address3 = "localhost:50054" //data 2 no cordinador
+	address = "10.10.28.7:50052" //namenode
+	address2 = "10.10.28.67:50051" //data1 no cordinador
+	address3 = "10.10.28.68:50054" //data 2 no cordinador
 
 
 )
